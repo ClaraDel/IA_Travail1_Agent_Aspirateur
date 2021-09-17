@@ -1,19 +1,19 @@
-
 from Model.Environnement import Environnement
+from Model.Robot import Robot
+
+class Controller:  
+
     
-
-
-    
-    
-
-
-def place_aspi(env,x,y):
-    env.env[x][y].aspi=True    
-
         
-
+    def getEnv(self):
+        return self.env
+    
+    def __init__(self):
+         
+        self.env = Environnement()
+        self.robot = Robot(self)
+    
+    
 if __name__ == "__main__":
-    
-    env = Environnement()
-    
+    Controller()
     

@@ -20,7 +20,7 @@ class Environnement :
             yJ = random.randrange(5)
             self.env[xJ][yJ].jew=True
             print("Jew placed in",xJ,",",yJ)
-            self.print_env()
+            #self.print_env()
             time.sleep(5)
         print("Thread end")
     
@@ -35,11 +35,10 @@ class Environnement :
         print("Main    : before creating thread")
         x = threading.Thread(target=self.thread_env, args=(1,))
         print("Main    : before running thread")
-        self.print_env()
-        self.print_env()
+        #self.print_env()
         x.start()
-        x.join()
-        print("Main    : all done")
+        #x.join()
+        #print("Main    : all done")
     
     
         #Display the env in console
@@ -57,6 +56,9 @@ class Environnement :
                 print("  ",end='')
             print('')
         print("----------")
+        
+
+    
 
 
     
