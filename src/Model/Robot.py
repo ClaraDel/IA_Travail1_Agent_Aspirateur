@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from Model.Capteur import Capteur
 
 class Robot:
     # Capteur
@@ -6,5 +7,5 @@ class Robot:
     # Environnement
     
     def __init__(self, controller):
-        #self.capteur = Capteur(environnement)
-        controller.getEnv().print_env()
+        self.capteur = Capteur()
+        self.capteur.scan(controller).print_env()
