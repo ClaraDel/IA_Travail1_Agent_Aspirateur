@@ -1,17 +1,11 @@
 import threading
 import time
 import random
-from dataclasses import dataclass
+import Case
+import Environnement
 #import tkinter
 #import interface
-
-@dataclass
-class Case:
-    jew : bool
-    dirt : bool
-    aspi : bool
     
-
 
 def thread_env(name,env):
     print("Thread start")
@@ -34,33 +28,8 @@ def thread_env(name,env):
     
 
 
-env = []
-for i in range(5):
-    l = []
-    for j in range(5):
-        l.append(Case(False,False, False))
-    env.append(l)
-    
 def place_aspi(env,x,y):
-    env[x][y].aspi=True
-    
-    
-#Display the env in console
-def print_env(env):
-    for row in env:
-        for col in row:
-            if col.jew:
-                print("J",end='')
-            if col.dirt:
-                print("D",end='')
-            if col.aspi:
-                print("A",end='')
-            if (not(col.dirt) and not(col.jew) and not(col.aspi)):
-                print("X",end='')
-            print("  ",end='')
-        print('')
-    print("----------")
-    
+    env[x][y].aspi=True    
 
         
 
