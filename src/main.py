@@ -1,10 +1,7 @@
 import threading
 import time
 import random
-import Case
-from Environnement import *
-#import tkinter
-#import interface
+from Model.Environnement import Environnement
     
 
 def thread_env(name,env):
@@ -13,15 +10,15 @@ def thread_env(name,env):
         #Dirt placement
         xD = random.randrange(5)
         yD = random.randrange(5)
-        env[xD][yD].dirt=True
+        env.env[xD][yD].dirt=True
         print("Dirt placed in",xD,",",yD)
         
         #jew placement
         xJ = random.randrange(5)
         yJ = random.randrange(5)
-        env[xJ][yJ].jew=True
+        env.env[xJ][yJ].jew=True
         print("Jew placed in",xJ,",",yJ)
-        print_env(env)
+        env.print_env()
         time.sleep(5)
     print("Thread end")
     
@@ -29,7 +26,7 @@ def thread_env(name,env):
 
 
 def place_aspi(env,x,y):
-    env[x][y].aspi=True    
+    env.env[x][y].aspi=True    
 
         
 

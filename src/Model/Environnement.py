@@ -1,6 +1,7 @@
+from Model.Case import Case
+
 
 class Environnement :
-    int NbrCaseSales
     
     def __init__(self ):
         self.env = []
@@ -8,11 +9,11 @@ class Environnement :
             l = []
             for j in range(5):
                 l.append(Case(False,False, False))
-            env.append(l)
+            self.env.append(l)
     
     
         #Display the env in console
-    def print_env():
+    def print_env(self):
         for row in self.env:
             for col in row:
                 if col.jew:
