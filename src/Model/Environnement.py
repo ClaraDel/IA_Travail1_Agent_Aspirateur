@@ -8,21 +8,28 @@ class Environnement :
     
     def thread_env(self , name):
         print("Thread start")
-        for i in range (5):
-            #Dirt placement
-            xD = random.randrange(5)
-            yD = random.randrange(5)
-            self.env[xD][yD].dirt=True
-            print("Dirt placed in",xD,",",yD)
+        jewelLimit = 5
+        numberJewel = 0
+        while (True):
+
+            #probability that dirt and jewel will be generated into the manor
+            dirtProbability = random.randrange(100)
+            jewelProbability = random.randrange(100)
+
+            if (dirtProbability <= 1):
+                #Dirt placement
+                xD = random.randrange(5)
+                yD = random.randrange(5)
+                self.env[xD][yD].dirt=True
+                print("Dirt placed in",xD,",",yD)
             
-            #jew placement
-            xJ = random.randrange(5)
-            yJ = random.randrange(5)
-            self.env[xJ][yJ].jew=True
-            print("Jew placed in",xJ,",",yJ)
-            self.print_env()
-            time.sleep(5)
-        print("Thread end")
+            if (jewelProbability <= 1 and numberJewel < jewelLimit):
+                #jewel placement
+                xJ = random.randrange(5)
+                yJ = random.randrange(5)
+                self.env[xJ][yJ].jew=True
+                print("Jewel placed in",xJ,",",yJ)
+                numberJewel += 1
     
     
     def __init__(self ):
