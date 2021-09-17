@@ -2,7 +2,7 @@ import threading
 import time
 import random
 import Case
-import Environnement
+from Environnement import *
 #import tkinter
 #import interface
     
@@ -34,12 +34,14 @@ def place_aspi(env,x,y):
         
 
 if __name__ == "__main__":
+    
+    env = Environnement()
     print("Main    : before creating thread")
     x = threading.Thread(target=thread_env, args=(1,env))
     print("Main    : before running thread")
-    print_env(env)
+    env.print_env()
     place_aspi(env, 2, 2)
-    print_env(env)
+    env.print_env()
     x.start()
     x.join()
     print("Main    : all done")
