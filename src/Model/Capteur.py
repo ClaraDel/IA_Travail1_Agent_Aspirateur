@@ -1,8 +1,10 @@
 
 class Capteur :
  
+    def __init__(self, env ):
+        self.env = env
         
-    def scan(self, controller):
-        return controller.getEnv()
+    def scan(self):
+        return self.env
         
         

@@ -1,19 +1,26 @@
 from Model.Environnement import Environnement
 from Model.Robot import Robot
+from Model.Capteur import Capteur
 
-class Controller:  
+     
+def main():
+    env = Environnement()
+    print("Environnement créé")
+    capteur = Capteur(env)
+    robot = Robot(capteur)
+    print("Robot créé avec capteurs")
+    #voir quand faire ça et quoi faire
+    
+    
 
-    
-        
-    def getEnv(self):
-        return self.env
-    
-    def __init__(self):
-         
-        self.env = Environnement()
-        self.robot = Robot(self)
-    
-    
 if __name__ == "__main__":
-    Controller()
+    main()
     
+    
+    # def getEnv(self):
+    #     return self.env
+    
+    # def __init__(self):
+         
+    #     self.env = Environnement()
+    #     self.robot = Robot(self)
