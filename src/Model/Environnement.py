@@ -7,7 +7,7 @@ import random
 class Environnement :
     
     def thread_env(self , name): 
-        print("Thread start")
+        print("Thread started \n")
         for i in range (5):
             #Dirt placement
             xD = random.randrange(5)
@@ -35,12 +35,11 @@ class Environnement :
             for j in range(5):
                 l.append(Case(False,False, False))
             self.env.append(l)
-        print("Main    : before creating thread")
-        x = threading.Thread(target=self.thread_env, args=(1,)) #génère une poussière et un bijoux
-        print("Main    : before running thread")
+        thread_env = threading.Thread(target=self.thread_env, args=(1,)) #génère une poussière et un bijoux
+        print("Main    : environement thread created")
         #self.print_env()
-        x.start()
-        #x.join()
+        thread_env.start()
+        #thread_env.join()
         #print("Main    : all done")
     
     

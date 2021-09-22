@@ -5,7 +5,7 @@ from Model.Capteur import Capteur
      
 def main():
     env = Environnement()
-    print("Environnement créé")
+    print("Environnement créé \n")
     capteur = Capteur(env)
     robot = Robot(capteur)
     print("Robot créé avec capteurs")
