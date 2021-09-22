@@ -18,9 +18,9 @@ class Robot:
                #     ChooseAnAction()
                #     justDoIt()
                #    }   
-            beliefEnv = beliefs()
-            explorationBFS = ExplorationGraph(beliefEnv)
-            explorationBFS.bfs(positionRobot)
+            # beliefEnv = beliefs()
+            # explorationBFS = ExplorationGraph(beliefEnv)
+            # explorationBFS.bfs(positionRobot)
             
             time.sleep(5)
         print("Thread ended")

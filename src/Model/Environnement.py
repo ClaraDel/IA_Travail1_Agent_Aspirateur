@@ -2,6 +2,8 @@ from Model.Case  import Case
 import threading
 import time
 import random
+from tkinter import *
+from Interface import Table
 
 
 class Environnement :
@@ -24,6 +26,7 @@ class Environnement :
             else : print("No jew placed this time")
             
             self.print_env()
+            self.draw_env()
             time.sleep(5)
         print("Thread end")
     
@@ -37,7 +40,6 @@ class Environnement :
             self.env.append(l)
         thread_env = threading.Thread(target=self.thread_env, args=(1,)) #génère une poussière et un bijoux
         print("Main    : environement thread created")
-        #self.print_env()
         thread_env.start()
         #thread_env.join()
         #print("Main    : all done")
@@ -58,6 +60,11 @@ class Environnement :
                 print("  ",end='')
             print('')
         print("----------")
+        
+    def draw_env(self):
+        root = Tk() 
+        t = Table(root, self) 
+        root.mainloop() 
         
 
     
