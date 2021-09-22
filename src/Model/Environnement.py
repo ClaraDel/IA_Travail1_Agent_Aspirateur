@@ -1,10 +1,12 @@
-from Model.Case import Case
+from Model.Salle import Salle
 import threading
 import time
 import random
 
 
 class Environnement :
+
+    
     
     def thread_env(self , name):
         print("Thread start")
@@ -25,13 +27,16 @@ class Environnement :
         print("Thread end")
     
     
-    def __init__(self ):
-        self.env = []
+    def __init__(self):
+
+        self.listeSalle = []
+        self.nbPoussiere = 0
+        self.nbBijou = 0
+
         for i in range(5):
-            l = []
             for j in range(5):
-                l.append(Case(False,False, False))
-            self.env.append(l)
+                listeSalle.append(Salle(i,j))
+
         print("Main    : before creating thread")
         x = threading.Thread(target=self.thread_env, args=(1,))
         print("Main    : before running thread")
