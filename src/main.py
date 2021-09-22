@@ -5,4 +5,5 @@ def place_aspi(env,x,y):
     env.env[x][y].aspi=True
 
 if __name__ == "__main__":
-    env = Environnement()
+    #env = Environnement()
+    Environnement.init_env()

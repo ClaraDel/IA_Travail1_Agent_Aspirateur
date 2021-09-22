@@ -2,11 +2,12 @@ from Model.Case import Case
 import threading
 import time
 import random
+from abc import ABC, abstractmethod
 
-
-class Environnement :
+class Environnement(ABC) :
     
-    def thread_env(self , name):
+    @abstractmethod 
+    def thread_env(env, name):
         print("Thread start")
         jewelLimit = 5
         numberJewel = 0
@@ -20,38 +21,39 @@ class Environnement :
                 #Dirt placement
                 xD = random.randrange(5)
                 yD = random.randrange(5)
-                self.env[xD][yD].dirt=True
+                env[xD][yD].dirt=True
                 print("Dirt placed in",xD,",",yD)
             
             if (jewelProbability <= 1 and numberJewel < jewelLimit):
                 #jewel placement
                 xJ = random.randrange(5)
                 yJ = random.randrange(5)
-                self.env[xJ][yJ].jew=True
+                env[xJ][yJ].jew=True
                 print("Jewel placed in",xJ,",",yJ)
                 numberJewel += 1
     
-    
-    def __init__(self ):
-        self.env = []
+    @abstractmethod 
+    def init_env():
+        env = []
         for i in range(5):
             l = []
             for j in range(5):
                 l.append(Case(False,False, False))
-            self.env.append(l)
+            env.append(l)
         print("Main    : before creating thread")
-        x = threading.Thread(target=self.thread_env, args=(1,))
+        print_env()
+        x = threading.Thread(env, args=(1,))
         print("Main    : before running thread")
-        self.print_env()
-        self.print_env()
+        print_env()
         x.start()
         x.join()
         print("Main    : all done")
     
     
-        #Display the env in console
-    def print_env(self):
-        for row in self.env:
+    #Display the env in console
+    @abstractmethod 
+    def print_env():
+        for row in env:
             for col in row:
                 if col.jew:
                     print("J",end='')
