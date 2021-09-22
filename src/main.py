@@ -4,10 +4,12 @@ from Model.Capteur import Capteur
 
      
 def main():
+    
     env = Environnement()
     print("Environnement créé \n")
     capteur = Capteur(env)
-    robot = Robot(capteur)
+    positionInitialeRobot = "00"
+    robot = Robot(capteur, positionInitialeRobot)
     print("Robot créé avec capteurs")
     #voir quand faire ça et quoi faire
     
