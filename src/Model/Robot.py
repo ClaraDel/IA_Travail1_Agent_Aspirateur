@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from Model.Capteur import Capteur
 from Model.Environment import Environment
+from Model.Vertice import Vertice
 
 class Robot:
     
@@ -17,11 +18,11 @@ class Robot:
         self.env = self.capteur.scan(self.controller)
         while(not(self.env.isClean())):
             ChooseAnAction()
-            
+
             
     def ObserveAndUpdate(self):
         self.env = self.capteur.scan(controller)
-        
+
         
     def ChooseAnAction(self):
         verticeList = []
@@ -34,3 +35,4 @@ class Robot:
             # Trouver ces voisins
             # Vérifier le marquage de ceux-ci
             # Les ajouter à la liste
+            print("temp")

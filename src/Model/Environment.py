@@ -40,7 +40,7 @@ class Environment :
                 return False
         return True
 
-    def getSalle(self, _x, _y):
+    def getRoom(self, _x, _y):
         for room in self.roomList:
             if room.getXPos() == _x and room.getYPos() == _y:
                 return room
