@@ -1,7 +1,4 @@
 from Model.Room import Room
-import threading
-import time
-import random
 
 
 class Environment :
@@ -14,7 +11,7 @@ class Environment :
 
         for i in range(5):
             for j in range(5):
-                roomList.append(Room(i,j))
+                self.roomList.append(Room(i,j))
     
         #Display the env in console
     def print_env(self):
@@ -33,20 +30,20 @@ class Environment :
         print("----------")
 
     def isClean(self):
-        for room in roomList:
+        for room in self.roomList:
             if (room.getDirt()):
                 return False
         return True
 
     def getSalle(self, _x, _y):
-        for room in roomList:
+        for room in self.roomList:
             if room.xPos == _x and room.yPos == _y:
                 return room
 
     def getNeighbor(self, _x, _y):
         neighborList = []
 
-        for room in roomList:
+        for room in self.roomList:
             if room.xPos == _x + 1 and room.yPos == _y:
                 neighborList.append(room)
             if room.xPos == _x - 1 and room.yPos == _y:
