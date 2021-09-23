@@ -1,5 +1,6 @@
 from Model.Environment import Environment
-from Model.Room import Room
+import threading
+import random
 
 class World:
 	
