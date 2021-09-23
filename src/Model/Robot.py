@@ -2,50 +2,37 @@
 from Model.Capteur import Capteur
 
 class Robot:
-    # Capteur
-    # Effecteur
-    # Environnement
     
+    #Recuperation du 
     def __init__(self, controller):
+        self.controller = controller
         self.capteur = Capteur()
         self.capteur.scan(controller).print_env()
         self.env = self.capteur.scan(controller)
-        self.actionPlan = []
-
-    def ChooseAnAction(actionChoisie): # classe Salle à implémenter
-
-        if (CheckGoalNode()):
-            return actionPlan
-
-        else:
-
-            sallesAExplorer = []
-            sallesAExplorer.append(getSalle(xRobot, yRobot))
-
-            while(!CheckGoalNode()):
-                salleCourante = sallesAExplorer[0]
-                salleCourante.dejaExploree = True # implémenter un attribut booléen permettant de dire si la salle a déjà été explorée
-
-                if (salleCourante.bijouxPresent): # implémenter ces 4 attributs
-                    salleCourante.bijouxAttrape = True
-                    salleCourante.bijouxPresent = False
-
-                if (salleCourante.poussierePresente):
-                    salleCourante.poussiereAttrapee = True
-                    salleCourante.poussierePresente = False
-
-                for salleVoisines in salleCourante.getSallesVoisines(): # implémenter cette méthode
-                    sallesAExplorer.append(salleVoisines)
-
-                sallesAExplorer.pop(0)
-
-
-
-
-    def CheckGoalNode(): # A CHANGERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
-        goalReached = True
-        for i in range(5):
-            for j in range(5):
-                if (env[i][j].jew or env[i][j].dirt):
-                    contientPoussiereOuBijoux = False
-        return contientPoussiereOuBijoux
+        self.x = 0 #
+        self.y = 0 # A random
+        
+        
+    def fonction_agent(self): 
+        self.env = self.capteur.scan(self.controller)
+        while (!self.env.isClean()):    #Achanger pour appeler le monde et savoir si nettoyage est necessaire
+            ObserveAnd Update()
+            ChooseAnAction()
+            
+            
+    def ObserveAndUpdate(self):
+        self.env = self.capteur.scan(controller)
+        
+        
+    def ChooseAnAction(self):
+        listAExplorer = []
+        listAExplorer.append(self.env)
+        end = False
+        while(!end && len(listAExplorer)>0): 
+            # Pop la file
+            # Marquer le noeud
+            # Trouver ces voisins
+            # VÃ©rifier le marquage de ceux-ci
+            # Les ajouter Ã  la liste
+            
+        
