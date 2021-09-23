@@ -1,4 +1,5 @@
 from Model.Environment import Environment
+from Model.Room import Room
 
 class World:
 	
@@ -15,16 +16,17 @@ class World:
 	def thread_env(self , name):
         print("Thread start")
         while(True):
-            #Dirt placement
-            dirt = random.randrange(25)
-            self.env.roomList.dirt=True
-            print("Dirt placed in",xD,",",yD)
+            dirtProbability = random.randrange(100)
+            if (dirtProbability <= 1):
+                #Dirt placement
+                dirt = random.randrange(25)
+                self.env.roomList[dirt].setDirt(True)
+                print("Dirt placed in",self.env.roomList[dirt].getXPos(),",",self.env.roomList[dirt].getYPos())
             
-            #jew placement
-            xJ = random.randrange(5)
-            yJ = random.randrange(5)
-            self.env[xJ][yJ].jew=True
-            print("Jew placed in",xJ,",",yJ)
-            #self.print_env()
-            time.sleep(5)
+            jewelProbability = random.randrange(100)
+            if (jewelProbability <= 1):
+                #jew placement
+                jewel = random.randrange(25)
+                self.env.roomList[jewel].setJewel(True)
+                print("Jew placed in",self.env.roomList[jewel].getXPos(),",",self.env.roomList[jewel].getYPos())
         print("Thread end")
