@@ -43,18 +43,18 @@ class Robot:
         
         
     # "son état interne devrait contenir un état mental sous la forme BDI :"
-    def beliefs():
-       beliefEnv = capteur.scan()
-       return beliefEnv
-       # for i in range(5):
-       #     for j in range(5):
-       #         if(env[i][j].jew=True) :
+    # def beliefs():
+    #    #beliefEnv = capteur.scan()
+    #    #return beliefEnv
+    #    # for i in range(5):
+    #    #     for j in range(5):
+    #    #         if(env[i][j].jew=True) :
    
-    def Desires():
-       return
-       #série d’états que l’agent souhaite atteindre ou description partielle d’un état  à atteindre.
-       #peuvent être implantés lors de la création du robot ou en cours de route
+    # def Desires():
+    #     return
+    #    #série d’états que l’agent souhaite atteindre ou description partielle d’un état  à atteindre.
+    #    #peuvent être implantés lors de la création du robot ou en cours de route
        
-    def intentions():
-       return
+    # def intentions():
+    #     return
        #actions que le robor compte effectuer dans le futur afin d’atteindre son/ses objectifs

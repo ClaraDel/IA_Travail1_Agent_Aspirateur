@@ -25,8 +25,8 @@ class Environnement :
                 print("Jew placed in",xJ,",",yJ)
             else : print("No jew placed this time")
             
+            #Affuchage
             self.print_env()
-            self.draw_env()
             time.sleep(5)
         print("Thread end")
     
@@ -38,11 +38,14 @@ class Environnement :
             for j in range(5):
                 l.append(Case(False,False, False))
             self.env.append(l)
+        
+        #thread_env.join()
+        #print("Main    : all done")
+        
+    def lauch_thread(self) :
         thread_env = threading.Thread(target=self.thread_env, args=(1,)) #génère une poussière et un bijoux
         print("Main    : environement thread created")
         thread_env.start()
-        #thread_env.join()
-        #print("Main    : all done")
     
     
         #Display the env in console
@@ -60,12 +63,8 @@ class Environnement :
                 print("  ",end='')
             print('')
         print("----------")
-        
-    def draw_env(self):
-        root = Tk() 
-        t = Table(root, self) 
-        root.mainloop() 
-        
+    #self.update_env()
+
 
     
 
