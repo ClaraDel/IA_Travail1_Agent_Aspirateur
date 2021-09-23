@@ -2,7 +2,7 @@ from Model.Room import Room
 
 
 class Environment :
-    
+
     def __init__(self):
 
         self.roomList = []
@@ -12,21 +12,26 @@ class Environment :
         for i in range(5):
             for j in range(5):
                 self.roomList.append(Room(i,j))
-    
+
         #Display the env in console
     def print_env(self):
-        for row in self.env:
-            for col in row:
-                if col.jewel:
-                    print("J",end='')
-                if col.dirt:
-                    print("D",end='')
-                if col.aspi:
-                    print("A",end='')
-                if (not(col.dirt) and not(col.jewel) and not(col.aspi)):
-                    print("X",end='')
-                print("  ",end='')
-            print('')
+        column = 0
+        print("----------")
+        for room in self.room:
+
+            if (room.getDirt()):
+                print("D", end='')
+            if (room.getJewel()):
+                print("J", end='')
+            else:
+                print("X",end='')
+
+            print("  ",end='')
+            column += 1
+
+            if (column == 5):
+                column = 0
+                print('')
         print("----------")
 
     def isClean(self):
@@ -37,20 +42,20 @@ class Environment :
 
     def getSalle(self, _x, _y):
         for room in self.roomList:
-            if room.xPos == _x and room.yPos == _y:
+            if room.getXPos() == _x and room.getYPos() == _y:
                 return room
 
     def getNeighbor(self, _x, _y):
         neighborList = []
 
         for room in self.roomList:
-            if room.xPos == _x + 1 and room.yPos == _y:
+            if room.getXPos() == _x + 1 and room.getYPos() == _y:
                 neighborList.append(room)
-            if room.xPos == _x - 1 and room.yPos == _y:
+            if room.getXPos() == _x - 1 and room.getYPos() == _y:
                 neighborList.append(room)
-            if room.xPos == _x and room.yPos == _y - 1:
+            if room.getXPos() == _x and room.getYPos() == _y - 1:
                 neighborList.append(room)
-            if room.xPos == _x and room.yPos == _y + 1:
+            if room.getXPos() == _x and room.getYPos() == _y + 1:
                 neighborList.append(room)
 
         return neighborList
