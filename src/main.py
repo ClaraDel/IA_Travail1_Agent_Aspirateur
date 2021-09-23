@@ -1,4 +1,4 @@
-from Model.Environnement import Environnement
+from Model.Environment import Environment
 from Model.Robot import Robot
 
 class Controller:  
@@ -10,7 +10,7 @@ class Controller:
     
     def __init__(self):
          
-        self.env = Environnement()
+        self.env = Environment()
         self.robot = Robot(self)
     
     
