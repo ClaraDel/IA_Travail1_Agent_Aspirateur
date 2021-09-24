@@ -10,11 +10,8 @@ def main():
     env = Environment()
     print("Environnement créé \n")
     
-    root = Tk()
-    root.title('PythonGuides')
-    root.geometry('500x400')
-    root.config(bg='#5fffff')
-    t = Table(env, root)
+
+    
     
     capteur = Capteur(env)
     positionX = 1
@@ -24,12 +21,17 @@ def main():
     world = World(env, robot)
     print("Monde créé ")
     
-    #root.after(5000, root.update)
+
+    #root.update()
+    root = Tk()
+    root.title('PythonGuides')
+    root.geometry('700x400')
+    root.config(bg='#5fffff')
+    t = Table(env, root)
+    for i in range(10,30000, 5000):
+        root.after(i, t.update_draw)
     root.mainloop()
     
-
-    #voir quand faire ça et quoi faire
-
 if __name__ == "__main__":
     main()
             

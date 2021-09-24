@@ -1,4 +1,5 @@
 from tkinter import *
+import time
   
 class Table(): 
       
@@ -7,20 +8,23 @@ class Table():
         self.env = env
         self.messageCaseJew = ""
         self.messageCaseDirt = ""
-        for i in range(5): 
-            for j in range(5): 
-                self.e = Entry(self.root, width=20) 
-                self.e.grid(row=i, column=j)
-        for room in self.env.roomList:
-                if (room.getDirt()):
-                    self.messageCaseDirt = "Poussière"
-                if (room.getJewel()):
-                    self.messageCaseJew = "Bijoux"
-                self.e.insert(END, str(self.messageCaseJew + " " + self.messageCaseDirt))
-                self.messageCaseJew = self.messageCaseDirt = ""
+        
+        #for i in range(5): 
+         #   for j in range(5): 
+
                 
     def update_draw(self):
-        return
+        
+        for room in self.env.roomList:
+            self.e = Entry(self.root, width=20)
+            self.e.grid(row=room.getXPos(), column=room.getYPos())
+            if (room.getDirt()):
+                self.messageCaseDirt = "Poussière"
+            if (room.getJewel()):
+                self.messageCaseJew = "Bijoux"
+            self.e.insert(END, str(self.messageCaseJew + " " + self.messageCaseDirt))
+            self.messageCaseJew = self.messageCaseDirt = ""
+        time.sleep(1)
                 
             
     def draw_env(self, root):
