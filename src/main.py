@@ -1,31 +1,36 @@
-from Model.Environnement import Environnement
+from Model.Environment import Environment
 from Model.Robot import Robot
 from Model.Capteur import Capteur
+from Model.World import World
 from tkinter import *
 from Interface import Table
-import time
 
 
 def main():
-    env = Environnement()
+    env = Environment()
+    print("Environnement créé \n")
+    capteur = Capteur(env)
+    positionX = 1
+    positionY = 1
+    robot = Robot(capteur, positionX, positionY)
+    print("Robot créé avec capteurs")
+    world = World(env, robot)
+    print("Monde créé ")
     
     root = Tk()
     root.title('PythonGuides')
     root.geometry('500x400')
     root.config(bg='#5fffff')
     t = Table(env, root)
+    print("affichage 1?")
+    #root.update()
     
-    root.update()
-    env.lauch_thread()
-    print("Environnement créé \n")
     
     #root.after(0, t.update_draw())
-    #root.mainloop()
+    root.mainloop()
+    print("affichage 2 ?")
     
-    capteur = Capteur(env)
-    positionInitialeRobot = "00"
-    robot = Robot(capteur, positionInitialeRobot)
-    print("Robot créé avec capteurs")
+
     #voir quand faire ça et quoi faire
 
 if __name__ == "__main__":

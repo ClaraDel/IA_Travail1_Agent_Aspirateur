@@ -2,26 +2,25 @@
 from Model.Capteur import Capteur
 from Model.Environment import Environment
 from Model.Vertice import Vertice
+import time
 
 class Robot:
     
     #Recuperation du 
-    def __init__(self, controller):
-        self.controller = controller
-        self.capteur = Capteur()
-        self.env = self.capteur.scan(controller)
-        self.x = 0 #
-        self.y = 0 # A random
+    def __init__(self, capteur, positionX, positionY):
+        self.capteur = capteur
+        self.positionX = positionX #
+        self.positionY = positionY # A random
         
         
     def agent_behaviour(self): 
         self.env = self.capteur.scan(self.controller)
         while(not(self.env.isClean())):
-            ChooseAnAction()
+            self.ChooseAnAction()
 
             
     def ObserveAndUpdate(self):
-        self.env = self.capteur.scan(controller)
+        self.env = self.capteur.scan()
 
         
     def ChooseAnAction(self):
@@ -36,3 +35,4 @@ class Robot:
             # Vérifier le marquage de ceux-ci
             # Les ajouter à la liste
             print("temp")
+            

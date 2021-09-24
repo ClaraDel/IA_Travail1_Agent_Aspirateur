@@ -13,27 +13,6 @@ class Environment :
             for j in range(5):
                 self.roomList.append(Room(i,j))
 
-        #Display the env in console
-    def print_env(self):
-        column = 0
-        print("----------")
-        for room in self.room:
-
-            if (room.getDirt()):
-                print("D", end='')
-            if (room.getJewel()):
-                print("J", end='')
-            else:
-                print("X",end='')
-
-            print("  ",end='')
-            column += 1
-
-            if (column == 5):
-                column = 0
-                print('')
-        print("----------")
-
     def isClean(self):
         for room in self.roomList:
             if (room.getDirt()):
@@ -59,3 +38,23 @@ class Environment :
                 neighborList.append(room)
 
         return neighborList
+
+    #Display the env in console
+    def print_env(self):
+        column = 0
+        print("----------")
+        for room in self.roomList:
+            if (room.getDirt()):
+                print("D", end='')
+            if (room.getJewel()):
+                print("J", end='')
+            else:
+                print(".",end='')
+
+            print("  ",end='')
+            column += 1
+
+            if (column == 5):
+                column = 0
+                print('')
+        print("----------")
