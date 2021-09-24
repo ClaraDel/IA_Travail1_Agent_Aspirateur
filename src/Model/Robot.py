@@ -36,7 +36,7 @@ class Robot:
             currentVertice = verticeList.pop(0)
             
             # Trouver ces voisins
-            neighbours = self.getNeighbours(currentVertice,verticeList)
+            neighbours = self.addNeighbours(currentVertice,verticeList)
             
             # Les ajouter à la liste
             for neighbour in neighbours:
@@ -49,7 +49,7 @@ class Robot:
                     
                 else:
                     # Si non l'ajouter à la liste des états à explorer
-                    verticeList.append(neighbours)
+                    verticeList.append(neighbour)
         return finalVertice
             
             
@@ -60,7 +60,7 @@ class Robot:
     # +x voisin si salle propre, si celles ci ne sont pas visitées dans la branche
     def addNeighbours(self,vertice,verticeList):
         neighbourList = []
-        if self.env.getSalle(vertice.getX(), vertice.getY()).getDirt():
+        if self.env.getRoom(vertice.getX(), vertice.getY()).getDirt():
             # Cas non propre
             newVertice = Vertice (vertice.getX(),
                                   vertice.getY(),

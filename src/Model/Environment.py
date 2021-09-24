@@ -45,7 +45,7 @@ class Environment :
             if room.getXPos() == _x and room.getYPos() == _y:
                 return room
 
-    def getNeighbor(self, _x, _y):
+    def getNeighbour(self, _x, _y):
         neighborList = []
 
         for room in self.roomList:
