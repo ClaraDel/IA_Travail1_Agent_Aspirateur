@@ -1,5 +1,4 @@
 from tkinter import *
-
   
 class Table(): 
       
@@ -12,18 +11,16 @@ class Table():
             for j in range(5): 
                 self.e = Entry(self.root, width=20) 
                 self.e.grid(row=i, column=j)
-        
-                
-    def update_draw(self):
-        loop_active = True
-        while loop_active:
-            for room in self.env.roomList:
+        for room in self.env.roomList:
                 if (room.getDirt()):
                     self.messageCaseDirt = "Poussière"
                 if (room.getJewel()):
                     self.messageCaseJew = "Bijoux"
                 self.e.insert(END, str(self.messageCaseJew + " " + self.messageCaseDirt))
                 self.messageCaseJew = self.messageCaseDirt = ""
+                
+    def update_draw(self):
+        return
                 
             
     def draw_env(self, root):

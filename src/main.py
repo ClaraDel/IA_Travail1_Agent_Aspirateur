@@ -9,6 +9,13 @@ from Interface import Table
 def main():
     env = Environment()
     print("Environnement créé \n")
+    
+    root = Tk()
+    root.title('PythonGuides')
+    root.geometry('500x400')
+    root.config(bg='#5fffff')
+    t = Table(env, root)
+    
     capteur = Capteur(env)
     positionX = 1
     positionY = 1
@@ -17,18 +24,8 @@ def main():
     world = World(env, robot)
     print("Monde créé ")
     
-    root = Tk()
-    root.title('PythonGuides')
-    root.geometry('500x400')
-    root.config(bg='#5fffff')
-    t = Table(env, root)
-    print("affichage 1?")
-    #root.update()
-    
-    
-    #root.after(0, t.update_draw())
+    #root.after(5000, root.update)
     root.mainloop()
-    print("affichage 2 ?")
     
 
     #voir quand faire ça et quoi faire
