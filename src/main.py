@@ -1,19 +1,34 @@
 from Model.Environment import Environment
 from Model.Robot import Robot
+from Model.Capteur import Capteur
+from Model.World import World
+from tkinter import *
+from Interface import Table
 
-class Controller:  
 
+def main():
+    env = Environment()
+    print("Environnement créé \n")
     
-        
-    def getEnv(self):
-        return self.env
+    capteur = Capteur(env)
+    positionX = 1
+    positionY = 1
+    robot = Robot(capteur, positionX, positionY)
+    print("Robot créé avec capteurs")
+    world = World(env, robot)
+    print("Monde créé ")
     
-    def __init__(self):
-         
-        self.env = Environment()
-        self.robot = Robot(self)
-    
+    #root.update()
+    root = Tk()
+    root.title('PythonGuides')
+    root.geometry('700x400')
+    root.config(bg='#5fffff')
+    t = Table(env, root)
+    for i in range(10,30000, 5000):
+        root.after(i, t.update_draw)
+    root.mainloop()
     
 if __name__ == "__main__":
-    Controller()
+    main()
+            
     

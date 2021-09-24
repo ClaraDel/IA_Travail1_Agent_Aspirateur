@@ -3,26 +3,19 @@ from Model.Capteur import Capteur
 from Model.Vertice import Vertice
 
 class Robot:
-
-    #Recuperation du
-    def __init__(self, controller):
-        self.controller = controller
-        self.capteur = Capteur()
-        self.env = self.capteur.scan(controller)
-        self.x = 0 #
-        self.y = 0 # A random
-
-
-    def agent_behaviour(self):
+    
+    def __init__(self, capteur, positionX, positionY):
+        self.capteur = capteur
+        self.positionX = positionX #
+        self.positionY = positionY # A random
+        
+    def agent_behaviour(self): 
         self.env = self.capteur.scan(self.controller)
         while(not(self.env.isClean())):
-            self.ObserveAndUpdate()
             self.ChooseAnAction()
 
-
     def ObserveAndUpdate(self):
-        self.env = self.capteur.scan(self.controller)
-
+        self.env = self.capteur.scan()
 
     def ChooseAnAction(self):
         verticeList = []
@@ -39,6 +32,7 @@ class Robot:
             neighbours = self.addNeighbours(currentVertice,verticeList)
             
             # Les ajouter à la liste
+
             for neighbour in neighbours:
                 # Vérifier si l'état final est atteint
                 if (self.env.dirtNumber == len(neighbour.getRoomsCleaned())):
@@ -112,3 +106,4 @@ class Robot:
             else:
                 return [(x-1,y), (x+1,y), (x, y-1), (x,y+1)]
             
+

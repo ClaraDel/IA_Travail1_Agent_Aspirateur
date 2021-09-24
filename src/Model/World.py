@@ -1,33 +1,55 @@
-from Model.Environment import Environment
 import threading
 import random
+import time
 
 class World:
 	
-    def __init__(self):
-        self.env = Environment()
+    def __init__(self, env, robot):
+        self.env = env
+        self.robot = robot
         #print("Main: before creating thread")
-        x = threading.Thread(target=self.thread_env, args=(1,))
-        print("Main    : before running thread")
-        #self.print_env()
-        x.start()
+        thread_e = threading.Thread(target=self.thread_env, args=(1,))
+        thread_r = threading.Thread(target=self.thread_robot, args=(1,))
+        thread_e.start()
+        thread_r.start()
+        
         #x.join()
         #print("Main    : all done")
 
     def thread_env(self , name):
-        print("Thread start")
-        while(True):
-            dirtProbability = random.randrange(100)
+        print("thread environment started \n")
+        for i in range(5):
+            dirtProbability = random.randrange(2)
             if (dirtProbability <= 1):
                 #Dirt placement
                 dirt = random.randrange(25)
                 self.env.roomList[dirt].setDirt(True)
                 print("Dirt placed in",self.env.roomList[dirt].getXPos(),",",self.env.roomList[dirt].getYPos())
             
-            jewelProbability = random.randrange(100)
+            jewelProbability = random.randrange(3)
             if (jewelProbability <= 1):
                 #jew placement
                 jewel = random.randrange(25)
                 self.env.roomList[jewel].setJewel(True)
                 print("Jew placed in",self.env.roomList[jewel].getXPos(),",",self.env.roomList[jewel].getYPos())
-        print("Thread end")
+            time.sleep(5)
+            self.env.print_env()
+        print("Thread environment ended")
+        
+        
+    def thread_robot(self , name):
+        print("thread robot started \n")
+        for i in range (5):
+            print("Tread robot en exécution\n")
+               # While (amIAlive()){
+               #     ObserveEnvironmentWithAllMySensors()
+               #     UpdateMyState()
+               #     ChooseAnAction()
+               #     justDoIt()
+               #    }   
+            # beliefEnv = beliefs()
+            # explorationBFS = ExplorationGraph(beliefEnv)
+            # explorationBFS.bfs(positionRobot)
+            time.sleep(5)
+        print("Thread robot ended")
+        
