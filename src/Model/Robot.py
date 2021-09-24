@@ -2,7 +2,6 @@
 from Model.Capteur import Capteur
 from Model.Environment import Environment
 from Model.Vertice import Vertice
-import time
 
 class Robot:
     
@@ -12,17 +11,14 @@ class Robot:
         self.positionX = positionX #
         self.positionY = positionY # A random
         
-        
     def agent_behaviour(self): 
         self.env = self.capteur.scan(self.controller)
         while(not(self.env.isClean())):
             self.ChooseAnAction()
 
-            
     def ObserveAndUpdate(self):
         self.env = self.capteur.scan()
 
-        
     def ChooseAnAction(self):
         verticeList = []
         firstVertice = Vertice(self.x, self.y, [], [])

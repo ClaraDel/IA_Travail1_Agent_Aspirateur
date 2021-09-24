@@ -8,11 +8,7 @@ class Table():
         self.env = env
         self.messageCaseJew = ""
         self.messageCaseDirt = ""
-        
-        #for i in range(5): 
-         #   for j in range(5): 
 
-                
     def update_draw(self):
         
         for room in self.env.roomList:
@@ -26,11 +22,6 @@ class Table():
             self.messageCaseJew = self.messageCaseDirt = ""
         time.sleep(1)
                 
-            
-    def draw_env(self, root):
-        #root.mainloop()
-        return
-    
     def close_env(self, root):
         root.quit()
 

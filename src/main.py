@@ -10,9 +10,6 @@ def main():
     env = Environment()
     print("Environnement créé \n")
     
-
-    
-    
     capteur = Capteur(env)
     positionX = 1
     positionY = 1
@@ -21,7 +18,6 @@ def main():
     world = World(env, robot)
     print("Monde créé ")
     
-
     #root.update()
     root = Tk()
     root.title('PythonGuides')
