@@ -5,11 +5,11 @@ class Vertice:
         # Coordonnées de la salle
         self.x = roomX
         self.y = roomY
-        # Etat propre ou salle
+        # Etat propre ou sale
         self.clean = roomState
         # List des salles visitées pour arriver dans cette salle (=chemin de la branche)
         self.path = listRooms
-        # Liste des salles nettoyées sur le chamin ci dessus (donc dans la branche)
+        # Liste des salles nettoyées sur le chemin ci dessus (donc dans la branche)
         self.roomsCleaned = roomsCleaned
 
     def getX(self):

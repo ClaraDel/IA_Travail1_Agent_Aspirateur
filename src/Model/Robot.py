@@ -36,6 +36,9 @@ class Robot:
             # On appelle une méthode de l'effecteur pour mettre à jour la position du robot ou lui ordonner d'aspirer la salle
             # dans laquelle il se trouve 
             self.x, self.y, toSuckOrNotToSuck = self.effecteur.processAction(self.x, self.y, currentAction)
+            
+            #Alternative : a voir si fonctionne
+            self.effecteur.processAction2(self, currentAction, trueEnvironment)
 
             # Si jamais il doit aspirer, on set le booléen dirt de la salle dans laquelle se trouve le robot à False
             # On réduit aussi le nombre de poussière dans l'environnement
@@ -46,18 +49,20 @@ class Robot:
 
     # Le robot délibère de la série d'actions à effectuer pour nettoyer le manoir
     def ChooseAnAction(self):
-        verticeList = []
+        verticeListToExplore = []
+        verticeListExplored = []
         firstVertice = Vertice(self.x, self.y, [(self.x,self.y)], [], False)
-        verticeList.append(firstVertice)
+        verticeListToExplore.append(firstVertice)
         end = False
         
-        while(not(end) and len(verticeList)>0):
+        while(not(end) and len(verticeListToExplore)>0):
             
             # Pop la file
-            currentVertice = verticeList.pop(0)
+            currentVertice = verticeListToExplore.pop(0)
+            verticeListExplored.append(currentVertice)
             
             # Trouver ces voisins
-            neighbours = self.addNeighbours(currentVertice,verticeList)
+            neighbours = self.addNeighbours(currentVertice, verticeListExplored)
             
             # Les ajouter à la liste
 
@@ -71,7 +76,7 @@ class Robot:
                     
                 else:
                     # Si non l'ajouter à la liste des états à explorer
-                    verticeList.append(neighbour)
+                    verticeListToExplore.append(neighbour)
 
         # Les premières coordonnées visitées sont celles sur lesquelles débute le robot
         previousCoordinates = [self.x,self.y]
@@ -91,6 +96,7 @@ class Robot:
                     self.actionList.append("down")
 
                 previousCoordinates = roomCoordinates
+                
             
             
             
@@ -98,7 +104,7 @@ class Robot:
     # Fonction pour ajouter les voisins d'une salle
     # +1 voisin si salle sale
     # +x voisin si salle propre, si celles ci ne sont pas visitées dans la branche
-    def addNeighbours(self,vertice,verticeList):
+    def addNeighbours(self,vertice,verticeListExplored):
         neighbourList = []
         if self.env.getRoom(vertice.getX(), vertice.getY()).getDirt():
             # Cas non propre
@@ -110,13 +116,16 @@ class Robot:
             neighbourList.append(newVertice)
         else:
             # Cas propre
-            # On récupère ls coordonnées des salles adjacentes
+            # On récupère les coordonnées des salles adjacentes
             listCoord = self.getNeighbourCoord(vertice.getX(),vertice.getY())
             # On regarde si elles sont déjà parcourues dans cette branche
-            for coord in listCoord:
-                if coord in verticeList:
-                    # Salle déjà explorée dans cette branche
-                    break
+            for coord in listCoord:                
+                if (coord in vertice.getPath()): 
+                    for verticeExplored in verticeListExplored:
+                        if ((verticeExplored.getX, verticeExplored.getY) == coord 
+                        and verticeExplored.getRoomsCleaned() == vertice.getRoomsCleaned()):
+                            # noeuds déjà exploré dans cette branche
+                            break                
                 else:
                     # Salle non explorée dans cette branche
                     newVertice = Vertice(coord[0],
@@ -125,6 +134,7 @@ class Robot:
                                          vertice.getRoomsCleaned()
                                          )
                     neighbourList.append(newVertice)
+        # TODO gérer quand on a tout exploré
         return neighbourList
                     
             
