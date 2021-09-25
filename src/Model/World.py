@@ -24,6 +24,7 @@ class World:
                 #Dirt placement
                 dirt = random.randrange(25)
                 self.env.roomList[dirt].setDirt(True)
+                self.env.setDirtNumber(self.env.getDirtNumber()+1)
                 print("Dirt placed in",self.env.roomList[dirt].getXPos(),",",self.env.roomList[dirt].getYPos())
             
             jewelProbability = random.randrange(3)
@@ -31,6 +32,7 @@ class World:
                 #jew placement
                 jewel = random.randrange(25)
                 self.env.roomList[jewel].setJewel(True)
+                self.env.setJewelNumber(self.env.getJewelNumber()+1)
                 print("Jew placed in",self.env.roomList[jewel].getXPos(),",",self.env.roomList[jewel].getYPos())
             time.sleep(5)
             self.env.print_env()

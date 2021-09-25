@@ -15,9 +15,9 @@ class Table():
             self.e = Entry(self.root, width=20)
             self.e.grid(row=room.getXPos(), column=room.getYPos())
             if (room.getDirt()):
-                self.messageCaseDirt = "Poussière"
+                self.messageCaseDirt = "Dirt"
             if (room.getJewel()):
-                self.messageCaseJew = "Bijoux"
+                self.messageCaseJew = "Jewel"
             self.e.insert(END, str(self.messageCaseJew + " " + self.messageCaseDirt))
             self.messageCaseJew = self.messageCaseDirt = ""
         time.sleep(1)

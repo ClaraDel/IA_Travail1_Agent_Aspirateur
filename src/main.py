@@ -1,4 +1,5 @@
 from Model.Environment import Environment
+from Model.Effecteur import Effecteur
 from Model.Robot import Robot
 from Model.Capteur import Capteur
 from Model.World import World
@@ -9,11 +10,11 @@ from Interface import Table
 def main():
     env = Environment()
     print("Environnement créé \n")
-    
+    effecteur = Effecteur()
     capteur = Capteur(env)
     positionX = 1
     positionY = 1
-    robot = Robot(capteur, positionX, positionY)
+    robot = Robot(capteur, effecteur, positionX, positionY)
     print("Robot créé avec capteurs")
     world = World(env, robot)
     print("Monde créé ")

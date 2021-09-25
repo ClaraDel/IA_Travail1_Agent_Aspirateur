@@ -1,22 +1,49 @@
 # -*- coding: utf-8 -*-
 from Model.Capteur import Capteur
 from Model.Vertice import Vertice
+from Model.Effecteur import Effecteur
+from Model.Environment import Environment
 
 class Robot:
     
-    def __init__(self, capteur, positionX, positionY):
+    def __init__(self, capteur, effecteur, positionX, positionY):
         self.capteur = capteur
-        self.positionX = positionX #
-        self.positionY = positionY # A random
+        self.effecteur = effecteur
+        self.x = positionX #
+        self.y = positionY # A random
+        self.actionList = []
         
     def agent_behaviour(self): 
         self.env = self.capteur.scan(self.controller)
         while(not(self.env.isClean())):
             self.ChooseAnAction()
 
+
     def ObserveAndUpdate(self):
         self.env = self.capteur.scan()
 
+
+    # Le robot applique les actions contenues dans sa liste d'actions
+    def JustDoIt(self, trueEnvironment):
+
+        # Tant que la liste d'action n'est pas vide, effectuer les actions
+        while (len(self.actionList > 0)):
+
+            # Pop la file
+            currentAction = self.actionList.pop(0)
+
+            # On appelle une méthode de l'effecteur pour mettre à jour la position du robot ou lui ordonner d'aspirer la salle
+            # dans laquelle il se trouve 
+            self.x, self.y, toSuckOrNotToSuck = self.effecteur.processAction(self.x, self.y, currentAction)
+
+            # Si jamais il doit aspirer, on set le booléen dirt de la salle dans laquelle se trouve le robot à False
+            # On réduit aussi le nombre de poussière dans l'environnement
+            if (toSuckOrNotToSuck):
+                trueEnvironment.getRoom(self.x,self.y).setDirt(False)
+                trueEnvironment.setDirtNumber(trueEnvironment.getDirtNumber()-1)
+
+
+    # Le robot délibère de la série d'actions à effectuer pour nettoyer le manoir
     def ChooseAnAction(self):
         verticeList = []
         firstVertice = Vertice(self.x, self.y, [(self.x,self.y)], [], False)
@@ -44,7 +71,25 @@ class Robot:
                 else:
                     # Si non l'ajouter à la liste des états à explorer
                     verticeList.append(neighbour)
-        return finalVertice
+
+        # Les premières coordonnées visitées sont celles sur lesquelles débute le robot
+        previousCoordinates = [self.x,self.y]
+
+        # On va reconstituer la liste d'action en fonction du chemin vers le noeud final et des salles nettoyées
+        for roomCoordinates in finalVertice.getPath():
+
+                if roomCoordinates in finalVertice.getRoomsCleaned():
+                    self.actionList.append("suck")
+                elif roomCoordinates[0] == previousCoordinates[0]-1:
+                    self.actionList.append("left")
+                elif roomCoordinates[0] == previousCoordinates[0]+1:
+                    self.actionList.append("right")
+                elif roomCoordinates[1] == previousCoordinates[1]-1:
+                    self.actionList.append("up")
+                elif roomCoordinates[1] == previousCoordinates[1]+1:
+                    self.actionList.append("down")
+
+                previousCoordinates = roomCoordinates
             
             
             
