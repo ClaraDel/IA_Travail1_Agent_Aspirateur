@@ -21,7 +21,7 @@ class World:
         for i in range(5):
             dirtProbability = random.randrange(2)
             if (dirtProbability <= 1):
-                #Dirt placement
+                # Placement des poussières et incrémentation du nombre de poussières dans l'environnement
                 dirt = random.randrange(25)
                 self.env.roomList[dirt].setDirt(True)
                 self.env.setDirtNumber(self.env.getDirtNumber()+1)
@@ -29,7 +29,7 @@ class World:
             
             jewelProbability = random.randrange(3)
             if (jewelProbability <= 1):
-                #jew placement
+                # Placement des bijoux et incrémentation du nombre de bijoux dans l'environnement
                 jewel = random.randrange(25)
                 self.env.roomList[jewel].setJewel(True)
                 self.env.setJewelNumber(self.env.getJewelNumber()+1)

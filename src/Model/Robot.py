@@ -13,6 +13,7 @@ class Robot:
         self.y = positionY # A random
         self.actionList = []
         
+        
     def agent_behaviour(self): 
         self.env = self.capteur.scan(self.controller)
         while(not(self.env.isClean())):
