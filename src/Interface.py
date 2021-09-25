@@ -1,4 +1,5 @@
 from tkinter import *
+from PIL import ImageTk,Image  
 import time
   
 class Table(): 
@@ -6,21 +7,23 @@ class Table():
     def __init__(self, env, root): 
         self.root = root
         self.env = env
-        self.messageCaseJew = ""
-        self.messageCaseDirt = ""
 
     def update_draw(self):
+        self.imgRobot = PhotoImage(file='Images/robot.png')
+        self.imgDirt = PhotoImage(file='Images/dirt.png')
+        self.imgJewel = PhotoImage(file='Images/jewel.png')
+        self.imgDustAndJewel = PhotoImage(file='Images/DustAndJewel.png')
+        self.imgNothing = PhotoImage(file='Images/nothing.png')
         
         for room in self.env.roomList:
-            self.e = Entry(self.root, width=20)
-            self.e.grid(row=room.getXPos(), column=room.getYPos())
+            panel = Label(self.root, image=self.imgNothing)         
             if (room.getDirt()):
-                self.messageCaseDirt = "Dirt"
-            if (room.getJewel()):
-                self.messageCaseJew = "Jewel"
-            self.e.insert(END, str(self.messageCaseJew + " " + self.messageCaseDirt))
-            self.messageCaseJew = self.messageCaseDirt = ""
-        time.sleep(1)
+                panel =  Label(self.root, image=self.imgDirt)
+                if (room.getJewel()):
+                    panel =  Label(self.root, image=self.imgDustAndJewel)
+            elif (room.getJewel()):
+                panel =  Label(self.root, image=self.imgJewel)
+            panel.grid(row=room.getXPos(), column=room.getYPos(), padx=4, pady=4)
                 
     def close_env(self, root):
         root.quit()

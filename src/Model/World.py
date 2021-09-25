@@ -34,8 +34,8 @@ class World:
                 self.env.roomList[jewel].setJewel(True)
                 self.env.setJewelNumber(self.env.getJewelNumber()+1)
                 print("Jew placed in",self.env.roomList[jewel].getXPos(),",",self.env.roomList[jewel].getYPos())
-            time.sleep(5)
             self.env.print_env()
+            time.sleep(5)
         print("Thread environment ended")
         
         

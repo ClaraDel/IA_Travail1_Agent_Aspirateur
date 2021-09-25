@@ -22,11 +22,12 @@ def main():
     #root.update()
     root = Tk()
     root.title('PythonGuides')
-    root.geometry('700x400')
-    root.config(bg='#5fffff')
+    root.geometry('550x550')
+    root.config(bg='#30449F')
     t = Table(env, root)
     for i in range(10,30000, 5000):
         root.after(i, t.update_draw)
+
     root.mainloop()
     
 if __name__ == "__main__":
