@@ -11,7 +11,9 @@ def main():
     # Création du manoir
     env = Environment()
     print("Environnement créé \n")
-    effecteur = Effecteur()
+    
+    # Création de l'agent 
+    effecteur = Effecteur(env)
     capteur = Capteur(env)
     positionX = 1  # RANDOM ? A mettre dans world?
     positionY = 1
