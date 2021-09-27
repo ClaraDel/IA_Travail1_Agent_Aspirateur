@@ -34,17 +34,7 @@ class Robot:
             currentAction = self.actionList.pop(0)
 
             # On appelle une méthode de l'effecteur pour mettre à jour la position du robot ou lui ordonner d'aspirer la salle
-            # dans laquelle il se trouve 
-            self.x, self.y, toSuckOrNotToSuck = self.effecteur.processAction(self.x, self.y, currentAction)
-            
-            #Alternative : a voir si fonctionne
             self.effecteur.processAction2(self, currentAction, trueEnvironment)
-
-            # Si jamais il doit aspirer, on set le booléen dirt de la salle dans laquelle se trouve le robot à False
-            # On réduit aussi le nombre de poussière dans l'environnement
-            if (toSuckOrNotToSuck):
-                trueEnvironment.getRoom(self.x,self.y).setDirt(False)
-                trueEnvironment.setDirtNumber(trueEnvironment.getDirtNumber()-1)
 
 
     # Le robot délibère de la série d'actions à effectuer pour nettoyer le manoir
