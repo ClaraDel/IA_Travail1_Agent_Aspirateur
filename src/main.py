@@ -3,22 +3,26 @@ from Model.Effecteur import Effecteur
 from Model.Robot import Robot
 from Model.Capteur import Capteur
 from Model.World import World
-from tkinter import *
+from tkinter import Tk
 from Interface import Table
 
 
 def main():
+    # Création du manoir
     env = Environment()
     print("Environnement créé \n")
     effecteur = Effecteur()
     capteur = Capteur(env)
-    positionX = 1
+    positionX = 1  # RANDOM ? A mettre dans world?
     positionY = 1
     robot = Robot(capteur, effecteur, positionX, positionY)
-    print("Robot créé avec capteurs")
+    print("Robot créé avec capteurs et effecteurs")
+    
+    # Ajout des deux éléments dans notre monde (lancement des threads)
     world = World(env, robot)
     print("Monde créé ")
     
+    # Gestion de l'interface
     #root.update()
     root = Tk()
     root.title('PythonGuides')

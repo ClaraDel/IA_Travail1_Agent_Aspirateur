@@ -8,6 +8,7 @@ class Environment :
         self.dirtNumber = 0
         self.jewelNumber = 0
 
+        # Création des 25 salles
         for i in range(5):
             for j in range(5):
                 self.roomList.append(Room(i,j))
@@ -21,22 +22,26 @@ class Environment :
         return self.dirtNumber
     def getJewelNumber(self):
         return self.jewelNumber
+    def upDirtNumber(self):
+        self.dirtNumber+=1
+    def downDirtNumber(self):
+        self.dirtNumber-=1
         
-
+    # Return True si toutes les salles sont propres
     def isClean(self):
         for room in self.roomList:
             if (room.getDirt()):
                 return False
         return True
 
-
+    # Renvoie la salle aux coordonnées (x,y)
     def getRoom(self, _x, _y):
         for room in self.roomList:
             if room.getXPos() == _x and room.getYPos() == _y:
                 return room
 
 
-    #Display the env in console
+    # Display the env in console
     def print_env(self):
         column = 0
         print("----------")

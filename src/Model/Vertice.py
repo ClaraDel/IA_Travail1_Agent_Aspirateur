@@ -2,13 +2,16 @@
 class Vertice:
 
     def __init__(self,roomX, roomY,listRooms, roomsCleaned, roomState):
-        # Coordonnées de la salle
+        # Coordonnées de la salle avec le robot
         self.x = roomX
         self.y = roomY
+        
         # Etat propre ou sale
         self.clean = roomState
-        # List des salles visitées pour arriver dans cette salle (=chemin de la branche)
+        
+        # Liste des salles visitées pour arriver dans cette salle (=chemin de la branche)
         self.path = listRooms
+        
         # Liste des salles nettoyées sur le chemin ci dessus (donc dans la branche)
         self.roomsCleaned = roomsCleaned
 
