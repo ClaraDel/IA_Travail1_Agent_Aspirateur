@@ -103,8 +103,8 @@ class Robot:
             for coord in listCoord:
                 if (coord in vertice.getPath()):
                     for verticeExplored in verticeListExplored:
-                        if ((verticeExplored.getX, verticeExplored.getY) == coord 
-                        and verticeExplored.getRoomsCleaned() == vertice.getRoomsCleaned()):
+                        if ((verticeExplored.getX, verticeExplored.getY) == coord
+                        and verticeExplored.getRoomsCleaned().sort() == vertice.getRoomsCleaned().sort()):
                             # noeuds déjà exploré dans cette branche
                             break
                 else:
@@ -112,7 +112,8 @@ class Robot:
                     newVertice = Vertice(coord[0],
                                          coord[1],
                                          vertice.getPath.append(coord),
-                                         vertice.getRoomsCleaned()
+                                         vertice.getRoomsCleaned(),
+                                         self.env.getRoom(coord[0],coord[1]).getDirt()
                                          )
                     neighbourList.append(newVertice)
         # TODO gérer quand on a tout exploré
