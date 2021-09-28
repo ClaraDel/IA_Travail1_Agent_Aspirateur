@@ -87,7 +87,7 @@ class Robot:
     # Fonction pour ajouter les voisins d'une salle
     # +1 voisin si salle sale
     # +x voisin si salle propre, si celles ci ne sont pas visitées dans la branche
-    def addNeighbours(self,vertice,verticeListToExplore,verticeListExplored):
+    def addNeighbours(self, vertice, verticeListToExplore, verticeListExplored):
         neighbourList = []
         #print("%%",vertice.getRoomsCleaned())
 
@@ -204,15 +204,14 @@ class Robot:
                 return [(x-1,y), (x+1,y), (x, y-1), (x,y+1)]
 
 
-
-     # Le robot applique les actions contenues dans sa liste d'actions
+    # Le robot applique les actions contenues dans sa liste d'actions
     def JustDoIt(self):
-        print(self.actionList)
         # Tant que la liste d'action n'est pas vide, effectuer les actions
+        print("JustDoIt, actionlist taille = " , len(self.actionList))
         while (len(self.actionList) > 0):
 
             # Pop la file
             currentAction = self.actionList.pop(0)
 
             # On appelle une méthode de l'effecteur pour mettre à jour la position du robot ou lui ordonner d'aspirer la salle
-            self.effecteur.processAction2(self, currentAction)
+            self.effecteur.processAction(self, currentAction)

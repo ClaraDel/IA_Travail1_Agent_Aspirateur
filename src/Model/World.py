@@ -48,6 +48,6 @@ class World:
                #     ObserveEnvironmentWithAllMySensors()
                #     UpdateMyState() 
             self.robot.ChooseAnAction() #determines the intentions and action plan
-            self.robot.JustDoIt(self.env)
+            self.robot.JustDoIt()
         print("Thread robot ended")
         
