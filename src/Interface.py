@@ -4,9 +4,10 @@ import time
   
 class Table(): 
       
-    def __init__(self, env, root): 
+    def __init__(self, env, root, robot): 
         self.root = root
         self.env = env
+        self.robot = robot
 
     def update_draw(self):
         self.imgRobot = PhotoImage(file='Images/robot.png')
@@ -23,6 +24,8 @@ class Table():
                     panel =  Label(self.root, image=self.imgDustAndJewel)
             elif (room.getJewel()):
                 panel =  Label(self.root, image=self.imgJewel)
+            if(self.robot.x == room.xPos and  self.robot.y == room.yPos):
+                panel =  Label(self.root, image=self.imgRobot)
             panel.grid(row=room.getXPos(), column=room.getYPos(), padx=4, pady=4)
                 
     def close_env(self, root):

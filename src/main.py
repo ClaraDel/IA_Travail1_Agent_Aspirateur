@@ -30,7 +30,7 @@ def main():
     root.title('PythonGuides')
     root.geometry('550x550')
     root.config(bg='#30449F')
-    t = Table(env, root)
+    t = Table(env, root, robot)
     for i in range(10,30000, 5000):
         root.after(i, t.update_draw)
 
