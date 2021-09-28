@@ -18,11 +18,12 @@ class World:
 
     def thread_env(self , name):
         print("thread environment started \n")
-        for i in range(5):
+        for i in range(2):
             dirtProbability = random.randrange(2)
             if (dirtProbability <= 1):
                 # Placement des poussières et incrémentation du nombre de poussières dans l'environnement
                 dirt = random.randrange(25)
+                #dirt=i+1
                 self.env.roomList[dirt].setDirt(True)
                 self.env.setDirtNumber(self.env.getDirtNumber()+1)
                 print("Dirt placed in",self.env.roomList[dirt].getXPos(),",",self.env.roomList[dirt].getYPos())
@@ -35,14 +36,18 @@ class World:
                 self.env.setJewelNumber(self.env.getJewelNumber()+1)
                 print("Jew placed in",self.env.roomList[jewel].getXPos(),",",self.env.roomList[jewel].getYPos())
             self.env.print_env()
-            time.sleep(5)
+            time.sleep(2)
         print("Thread environment ended")
         
         
     def thread_robot(self , name):
+        time.sleep(5)
         print("thread robot started \n")
-        for i in range (5):
+        for i in range (1):
             print("Tread robot en exécution\n")
+            self.robot.ObserveAndUpdate()
+            self.robot.ChooseAnAction()
+            self.robot.JustDoIt()
                # While (amIAlive()){
                #     ObserveEnvironmentWithAllMySensors()
                #     UpdateMyState()

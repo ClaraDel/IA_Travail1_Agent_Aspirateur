@@ -42,7 +42,7 @@ class Robot:
             # Pop la file pour récupérer le prochain noeud à explorer
             currentVertice = verticeListToExplore.pop(0)
             
-            print("Noeud pop",currentVertice.getX(),currentVertice.getY())
+           # print("Noeud pop",currentVertice.getX(),currentVertice.getY())
 
             # Trouver ces voisins
             neighbours = self.addNeighbours(currentVertice,verticeListToExplore, verticeListExplored)
@@ -51,6 +51,7 @@ class Robot:
             for neighbour in neighbours:
                 #print("Voisin :",neighbour.getX(),neighbour.getY(),neighbour.getPath(),neighbour.getRoomsCleaned())
                 # Vérifier si l'état final est atteint
+                #print(self.env.dirtNumber , len(neighbour.getRoomsCleaned()))
                 if (self.env.dirtNumber == len(neighbour.getRoomsCleaned())):
                     # Si oui on stoppe la boucle while
                     end = True
@@ -123,6 +124,7 @@ class Robot:
             if (exist):
                     print("noeud existant")
                     
+                    
             else:
                     #print("%%",vertice.getRoomsCleaned())
                     path = deepcopy(vertice.getPath())
@@ -167,15 +169,17 @@ class Robot:
                 if (exist):
                     print("noeud existant")
                     
+                    
                 else:
                     # Salle non explorée dans cette branche
                     #print("add in neighbourList")
                     path = deepcopy(vertice.getPath())
                     path.append(coord)
+                    path2 = deepcopy(vertice.getRoomsCleaned())
                     newVertice = Vertice(coord[0],
                                          coord[1],
                                          path,
-                                         deepcopy(vertice.getRoomsCleaned()),
+                                         path2,
                                          self.env.getRoom(coord[0],coord[1]).getDirt()
                                          )
                     neighbourList.append(newVertice)
