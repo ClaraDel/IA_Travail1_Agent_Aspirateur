@@ -22,7 +22,7 @@ class World:
             dirtProbability = random.randrange(2)
             if (dirtProbability <= 1):
                 # Placement des poussières et incrémentation du nombre de poussières dans l'environnement
-                dirt = (i+1)*5
+                dirt = random.randrange(25)
                 #dirt=i+1
                 if (not self.env.roomList[dirt].getDirt()):
                     self.env.roomList[dirt].setDirt(True)

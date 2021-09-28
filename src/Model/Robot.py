@@ -38,9 +38,6 @@ class Robot:
             #print("--\nITERATION\n--")
             # Pop la file pour récupérer le prochain noeud à explorer
             verticeListToExplore.sort(key=lambda myVertices: myVertices.getHeuristic())
-            print("liste des noeuds à explorer : ")
-            for vertice in verticeListToExplore:
-                print(vertice, sep=' ', end='')
             currentVertice = verticeListToExplore.pop(0)
             
            # print("Noeud pop",currentVertice.getX(),currentVertice.getY())
