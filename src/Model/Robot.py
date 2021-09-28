@@ -120,7 +120,8 @@ class Robot:
                     exist=True
                     break
             if (exist):
-                    print("noeud existant")
+                    # print("noeud existant")
+                    pass
                     
                     
             else:
