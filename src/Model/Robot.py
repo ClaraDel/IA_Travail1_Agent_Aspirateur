@@ -11,15 +11,12 @@ class Robot:
         self.y = positionY
         self.actionList = []
 
-
-
     # Observe l'environnement et récupère une copie grâce au capteur
     def ObserveAndUpdate(self):
         self.env = self.capteur.scan()
-
-
-
-
+        print("observe and update")
+        # informé : L'heuristique est une information qui se trouve dans l'environnement et qui sera lue par le robot et transformée en connaissance dans son état mental interne (B - Beliefs). 
+        # informé : met à jour l'heuristique de chaque pièce de la maison
 
     # Le robot délibère de la série d'actions à effectuer pour nettoyer le manoir
     def ChooseAnAction(self):
@@ -86,10 +83,6 @@ class Robot:
                     self.actionList.append("right")
 
                 previousCoordinates = roomCoordinates
-
-
-
-
 
     # Fonction pour ajouter les voisins d'une salle
     # +1 voisin si salle sale

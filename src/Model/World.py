@@ -42,16 +42,12 @@ class World:
     def thread_robot(self , name):
         print("thread robot started \n")
         for i in range (5):
+        # While (amIAlive()){
             print("Tread robot en exécution\n")
-               # While (amIAlive()){
+            self.robot.ObserveAndUpdate()
                #     ObserveEnvironmentWithAllMySensors()
-               #     UpdateMyState()
-               #     ChooseAnAction()
-               #     justDoIt()
-               #    }   
-            # beliefEnv = beliefs()
-            # explorationBFS = ExplorationGraph(beliefEnv)
-            # explorationBFS.bfs(positionRobot)
-            time.sleep(5)
+               #     UpdateMyState() 
+            self.robot.ChooseAnAction() #determines the intentions and action plan
+            self.robot.JustDoIt(self.env)
         print("Thread robot ended")
         
