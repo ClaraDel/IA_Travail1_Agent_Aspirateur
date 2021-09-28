@@ -6,13 +6,13 @@ class Effecteur:
 
     def processAction2(self, robot, action):
         if (action == "right"):
-            robot.positionX += 1
+            robot.x += 1
         elif (action == "left"):
-            robot.positionX -= 1
+            robot.x -= 1
         elif (action == "up"):
-            robot.positionY -= 1
+            robot.y -= 1
         elif (action == "down"):
-            robot.positionY += 1
+            robot.y += 1
         elif (action == "clean"):
-            self.env.getRoom(robot.positionX, robot.positionY).setDirt(False)
+            self.env.getRoom(robot.x, robot.y).setDirt(False)
             self.env.downDirtNumber()

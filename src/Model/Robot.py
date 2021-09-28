@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from Model.Vertice import Vertice
+from copy import deepcopy
 
 class Robot:
 
@@ -26,51 +27,63 @@ class Robot:
         verticeListExplored = []   # Liste des états déjà explorer
 
         # Noeud de départ ajouté à la file
-        firstVertice = Vertice(self.x, self.y, [(self.x,self.y)], [], False)
+        path =[]
+        path2=[]
+        #path.append((self.x,self.y))
+        firstVertice = Vertice(self.x, self.y, path, path2, False)
         verticeListToExplore.append(firstVertice)
 
 
         end = False   # Condition d'arret (état propre trouvé)
 
-        # Tant qu'il y a des noeuds à explorer et que la condition d'arret n'est pas atteiente
+        # Tant qu'il y a des noeuds à explorer et que la condition d'arret n'est pas atteinte
         while(not(end) and len(verticeListToExplore)>0):
-
+            #print("--\nITERATION\n--")
             # Pop la file pour récupérer le prochain noeud à explorer
             currentVertice = verticeListToExplore.pop(0)
-            verticeListExplored.append(currentVertice)
+            
+            print("Noeud pop",currentVertice.getX(),currentVertice.getY())
 
             # Trouver ces voisins
-            neighbours = self.addNeighbours(currentVertice, verticeListExplored)
+            neighbours = self.addNeighbours(currentVertice,verticeListToExplore, verticeListExplored)
 
             # Les ajouter à la liste
             for neighbour in neighbours:
+                #print("Voisin :",neighbour.getX(),neighbour.getY(),neighbour.getPath(),neighbour.getRoomsCleaned())
                 # Vérifier si l'état final est atteint
                 if (self.env.dirtNumber == len(neighbour.getRoomsCleaned())):
                     # Si oui on stoppe la boucle while
                     end = True
+                    #print("end")
                     # On sauvegarde le dernier noeud
                     finalVertice = neighbour
 
                 else:
+                    #print("Added to list")
                     # Si non l'ajouter à la liste des états à explorer
                     verticeListToExplore.append(neighbour)
+            verticeListExplored.append(currentVertice)
 
         # Les premières coordonnées visitées sont celles sur lesquelles débute le robot
         previousCoordinates = (self.x,self.y)
 
         # On va reconstituer la liste d'action en fonction du chemin vers le noeud final et des salles nettoyées
+        
+        #print("###")
+        #print(finalVertice.getPath())
         for roomCoordinates in finalVertice.getPath():
+                #print(roomCoordinates,previousCoordinates)
 
-                if roomCoordinates in finalVertice.getRoomsCleaned():
+                if roomCoordinates == (previousCoordinates[0],previousCoordinates[1]):
                     self.actionList.append("clean")
                 elif roomCoordinates[0] == previousCoordinates[0]-1:
-                    self.actionList.append("left")
-                elif roomCoordinates[0] == previousCoordinates[0]+1:
-                    self.actionList.append("right")
-                elif roomCoordinates[1] == previousCoordinates[1]-1:
                     self.actionList.append("up")
-                elif roomCoordinates[1] == previousCoordinates[1]+1:
+                elif roomCoordinates[0] == previousCoordinates[0]+1:
                     self.actionList.append("down")
+                elif roomCoordinates[1] == previousCoordinates[1]-1:
+                    self.actionList.append("left")
+                elif roomCoordinates[1] == previousCoordinates[1]+1:
+                    self.actionList.append("right")
 
                 previousCoordinates = roomCoordinates
 
@@ -81,18 +94,48 @@ class Robot:
     # Fonction pour ajouter les voisins d'une salle
     # +1 voisin si salle sale
     # +x voisin si salle propre, si celles ci ne sont pas visitées dans la branche
-    def addNeighbours(self,vertice,verticeListExplored):
+    def addNeighbours(self,vertice,verticeListToExplore,verticeListExplored):
         neighbourList = []
+        #print("%%",vertice.getRoomsCleaned())
 
         # On regarde l'état de propreté de la salle
-        if self.env.getRoom(vertice.getX(), vertice.getY()).getDirt():
+        if self.env.getRoom(vertice.getX(), vertice.getY()).getDirt() and not((vertice.getX(),vertice.getY())in vertice.getRoomsCleaned()):
+            #print("Salle non propre")
+            #print("%%",vertice.getRoomsCleaned())
             # Cas non propre - on ajoute le noeud suivant avec la salle propre
-            newVertice = Vertice (vertice.getX(),
-                                  vertice.getY(),
-                                  vertice.getPath(),
-                                  vertice.getRoomsCleaned.append((vertice.getX(),vertice.getY())),
-                                  True)
-            neighbourList.append(newVertice)
+            exist = False
+            path = deepcopy(vertice.getRoomsCleaned()).append((vertice.getX(),vertice.getY()))
+            for verticeExplored in verticeListExplored:
+                #print("test",verticeExplored.getX(), verticeExplored.getY(),verticeExplored.getRoomsCleaned(),vertice.getRoomsCleaned())
+                if (verticeExplored.getX(), verticeExplored.getY()) == (vertice.getX(),vertice.getY()) and verticeExplored.getRoomsCleaned() == path:
+                    # noeuds déjà exploré dans cette branche
+                    
+                    exist=True
+                    break
+            #print("-")
+            for verticeExplored in verticeListToExplore:
+                #print("test",verticeExplored.getX(), verticeExplored.getY(),verticeExplored.getRoomsCleaned(),vertice.getRoomsCleaned())
+                if (verticeExplored.getX(), verticeExplored.getY()) == (vertice.getX(),vertice.getY()) and verticeExplored.getRoomsCleaned() == path:
+                    # noeuds déjà exploré dans cette branche
+                    
+                    exist=True
+                    break
+            if (exist):
+                    print("noeud existant")
+                    
+            else:
+                    #print("%%",vertice.getRoomsCleaned())
+                    path = deepcopy(vertice.getPath())
+                    path.append((vertice.getX(),vertice.getY()))
+                    path2 = deepcopy(vertice.getRoomsCleaned())
+                    path2.append((vertice.getX(),vertice.getY()))
+                    newVertice = Vertice (vertice.getX(),
+                                          vertice.getY(),
+                                          path,
+                                          path2,
+                                          False)
+                    neighbourList.append(newVertice)
+                    #print("add cleaned")
 
         else:
             # Cas propre
@@ -100,22 +143,43 @@ class Robot:
             listCoord = self.getNeighbourCoord(vertice.getX(),vertice.getY())
 
             # On regarde si elles sont déjà parcourues dans cette branche
+            #print("Salle propre")
             for coord in listCoord:
-                if (coord in vertice.getPath()):
-                    for verticeExplored in verticeListExplored:
-                        if ((verticeExplored.getX, verticeExplored.getY) == coord
-                        and verticeExplored.getRoomsCleaned().sort() == vertice.getRoomsCleaned().sort()):
-                            # noeuds déjà exploré dans cette branche
-                            break
+                #print("Potentiel voisin",coord[0],coord[1])
+                
+                exist = False
+                for verticeExplored in verticeListExplored:
+                    #print("test",verticeExplored.getX(), verticeExplored.getY(),verticeExplored.getRoomsCleaned(),vertice.getRoomsCleaned())
+                    if (verticeExplored.getX(), verticeExplored.getY()) == coord and verticeExplored.getRoomsCleaned() == vertice.getRoomsCleaned():
+                        # noeuds déjà exploré dans cette branche
+                        
+                        exist=True
+                        break
+                #print("-")
+                for verticeExplored in verticeListToExplore:
+                    #print("test",verticeExplored.getX(), verticeExplored.getY(),verticeExplored.getRoomsCleaned(),vertice.getRoomsCleaned())
+                    if (verticeExplored.getX(), verticeExplored.getY()) == coord and verticeExplored.getRoomsCleaned() == vertice.getRoomsCleaned():
+                        # noeuds déjà exploré dans cette branche
+                        
+                        exist=True
+                        break
+                
+                if (exist):
+                    print("noeud existant")
+                    
                 else:
                     # Salle non explorée dans cette branche
+                    #print("add in neighbourList")
+                    path = deepcopy(vertice.getPath())
+                    path.append(coord)
                     newVertice = Vertice(coord[0],
                                          coord[1],
-                                         vertice.getPath.append(coord),
-                                         vertice.getRoomsCleaned(),
+                                         path,
+                                         deepcopy(vertice.getRoomsCleaned()),
                                          self.env.getRoom(coord[0],coord[1]).getDirt()
                                          )
                     neighbourList.append(newVertice)
+                    
         # TODO gérer quand on a tout exploré
         return neighbourList
 
@@ -123,7 +187,7 @@ class Robot:
     #
     # Renvoie les coordonnées des salles voisines en fonction de la position
     #
-    def getNeighbourCoord(x,y):
+    def getNeighbourCoord(self,x,y):
         if x==0:
             if y==0:
                 return [(x+1,y), (x,y+1)]
@@ -150,9 +214,9 @@ class Robot:
 
      # Le robot applique les actions contenues dans sa liste d'actions
     def JustDoIt(self):
-
+        print(self.actionList)
         # Tant que la liste d'action n'est pas vide, effectuer les actions
-        while (len(self.actionList > 0)):
+        while (len(self.actionList) > 0):
 
             # Pop la file
             currentAction = self.actionList.pop(0)
