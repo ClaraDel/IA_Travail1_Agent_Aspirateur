@@ -17,10 +17,6 @@ class Robot:
     def ObserveAndUpdate(self):
         self.env = self.capteur.scan()
 
-
-
-
-
     # Le robot délibère de la série d'actions à effectuer pour nettoyer le manoir
     def ChooseAnAction(self):
         verticeListToExplore = []  # Liste des états à visiter (File)
@@ -29,8 +25,9 @@ class Robot:
         # Noeud de départ ajouté à la file
         path =[]
         path2=[]
+
         #path.append((self.x,self.y))
-        firstVertice = Vertice(self.x, self.y, path, path2, False)
+        firstVertice = Vertice(self.x, self.y, path, path2, False, self.env.getDirtNumber())
         verticeListToExplore.append(firstVertice)
 
 
@@ -40,6 +37,10 @@ class Robot:
         while(not(end) and len(verticeListToExplore)>0):
             #print("--\nITERATION\n--")
             # Pop la file pour récupérer le prochain noeud à explorer
+            verticeListToExplore.sort(key=lambda myVertices: myVertices.getHeuristic())
+            print("liste des noeuds à explorer : ")
+            for vertice in verticeListToExplore:
+                print(vertice, sep=' ', end='')
             currentVertice = verticeListToExplore.pop(0)
             
            # print("Noeud pop",currentVertice.getX(),currentVertice.getY())
@@ -135,7 +136,8 @@ class Robot:
                                           vertice.getY(),
                                           path,
                                           path2,
-                                          False)
+                                          False,
+                                          vertice.getDirtNumberRemaining()-1)
                     neighbourList.append(newVertice)
                     #print("add cleaned")
 
@@ -180,7 +182,8 @@ class Robot:
                                          coord[1],
                                          path,
                                          path2,
-                                         self.env.getRoom(coord[0],coord[1]).getDirt()
+                                         self.env.getRoom(coord[0],coord[1]).getDirt(),
+                                         vertice.getDirtNumberRemaining()
                                          )
                     neighbourList.append(newVertice)
                     

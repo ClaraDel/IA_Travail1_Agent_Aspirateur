@@ -22,19 +22,21 @@ class World:
             dirtProbability = random.randrange(2)
             if (dirtProbability <= 1):
                 # Placement des poussières et incrémentation du nombre de poussières dans l'environnement
-                dirt = random.randrange(25)
+                dirt = (i+1)*5
                 #dirt=i+1
-                self.env.roomList[dirt].setDirt(True)
-                self.env.setDirtNumber(self.env.getDirtNumber()+1)
-                print("Dirt placed in",self.env.roomList[dirt].getXPos(),",",self.env.roomList[dirt].getYPos())
+                if (not self.env.roomList[dirt].getDirt()):
+                    self.env.roomList[dirt].setDirt(True)
+                    self.env.setDirtNumber(self.env.getDirtNumber()+1)
+                    print("Dirt placed in",self.env.roomList[dirt].getXPos(),",",self.env.roomList[dirt].getYPos())
             
             jewelProbability = random.randrange(3)
             if (jewelProbability <= 1):
                 # Placement des bijoux et incrémentation du nombre de bijoux dans l'environnement
                 jewel = random.randrange(25)
-                self.env.roomList[jewel].setJewel(True)
-                self.env.setJewelNumber(self.env.getJewelNumber()+1)
-                print("Jew placed in",self.env.roomList[jewel].getXPos(),",",self.env.roomList[jewel].getYPos())
+                if (not self.env.roomList[jewel].getJewel()):
+                    self.env.roomList[jewel].setJewel(True)
+                    self.env.setJewelNumber(self.env.getJewelNumber()+1)
+                    print("Jew placed in",self.env.roomList[jewel].getXPos(),",",self.env.roomList[jewel].getYPos())
             self.env.print_env()
             time.sleep(2)
         print("Thread environment ended")

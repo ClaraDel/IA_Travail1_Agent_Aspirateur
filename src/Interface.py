@@ -9,11 +9,11 @@ class Table():
         self.env = env
 
     def update_draw(self):
-        self.imgRobot = PhotoImage(file='Images/robot.png')
-        self.imgDirt = PhotoImage(file='Images/dirt.png')
-        self.imgJewel = PhotoImage(file='Images/jewel.png')
-        self.imgDustAndJewel = PhotoImage(file='Images/DustAndJewel.png')
-        self.imgNothing = PhotoImage(file='Images/nothing.png')
+        self.imgRobot = PhotoImage(file='D:/cours UQAC/IA/aspirobot/src/Images/robot.png')
+        self.imgDirt = PhotoImage(file='D:/cours UQAC/IA/aspirobot/src/Images/dirt.png')
+        self.imgJewel = PhotoImage(file='D:/cours UQAC/IA/aspirobot/src/Images/jewel.png')
+        self.imgDustAndJewel = PhotoImage(file='D:/cours UQAC/IA/aspirobot/src/Images/DustAndJewel.png')
+        self.imgNothing = PhotoImage(file='D:/cours UQAC/IA/aspirobot/src/Images/nothing.png')
         
         for room in self.env.roomList:
             panel = Label(self.root, image=self.imgNothing)         
