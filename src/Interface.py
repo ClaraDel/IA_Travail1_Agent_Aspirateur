@@ -13,13 +13,14 @@ class Table():
         self.imgJewel = PhotoImage(file='Images/jewel.png')
         self.imgDustAndJewel = PhotoImage(file='Images/DustAndJewel.png')
         self.imgNothing = PhotoImage(file='Images/nothing.png')
-        Button(text = "Quitter", command = self.root.quit).grid(row=5,column=4)
+        Button(text = "Quitter", command = self.root.destroy).grid(row=5,column=4)
         for room in self.env.roomList:
             Label(self.root, image=self.imgNothing).grid(row=room.getXPos(), column=room.getYPos(), padx=4, pady=4)
 
     def update_draw(self):
-        panel = Label() 
         for room in self.env.roomList:
+            panel = Label(self.root, image=self.imgNothing)
+            #if (not(room.getDirt() and room.getJewel(), and self.robot.x == room.xPos and self.robot.y == room.yPos)):
             if (room.getDirt()):
                 panel =  Label(self.root, image=self.imgDirt)
                 if (room.getJewel()):

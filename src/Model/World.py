@@ -28,7 +28,7 @@ class World:
                     self.env.addDirt(dirt)
                     print("Dirt placed in",self.env.roomList[dirt].getXPos(),",",self.env.roomList[dirt].getYPos())
             
-            jewelProbability = random.randrange(3)
+            jewelProbability = random.randrange(5)
             if (jewelProbability <= 1):
                 # Placement des bijoux et incrémentation du nombre de bijoux dans l'environnement
                 jewel = random.randrange(25)

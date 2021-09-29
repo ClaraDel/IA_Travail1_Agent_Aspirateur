@@ -33,8 +33,7 @@ def main():
     root.config(bg='#30449F')
     t = Table(env, root, robot)
     
-    
-    for i in range(10):
+    for i in range(20):
         root.update()
         t.update_draw()
         time.sleep(1)
