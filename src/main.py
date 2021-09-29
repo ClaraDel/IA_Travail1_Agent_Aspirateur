@@ -11,7 +11,6 @@ import time
 def main():
     # Création du manoir
     env = Environment()
-    print("Environnement créé \n")
     
     # Création de l'agent 
     effecteur = Effecteur(env)
@@ -19,11 +18,9 @@ def main():
     positionX = 1  # RANDOM ? A mettre dans world?
     positionY = 1
     robot = Robot(capteur, effecteur, positionX, positionY)
-    print("Robot créé avec capteurs et effecteurs")
     
     # Ajout des deux éléments dans notre monde (lancement des threads)
     world = World(env, robot)
-    print("Monde créé ")
     
     # Gestion de l'interface
     #root.update()
@@ -33,7 +30,7 @@ def main():
     root.config(bg='#30449F')
     t = Table(env, root, robot)
     
-    for i in range(20):
+    for i in range(25):
         root.update()
         t.update_draw()
         time.sleep(1)

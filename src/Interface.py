@@ -11,8 +11,12 @@ class Table():
         self.imgRobot = PhotoImage(file='Images/robot.png')
         self.imgDirt = PhotoImage(file='Images/dirt.png')
         self.imgJewel = PhotoImage(file='Images/jewel.png')
-        self.imgDustAndJewel = PhotoImage(file='Images/DustAndJewel.png')
+        self.imgDirtAndJewel = PhotoImage(file='Images/DirtAndJewel.png')
+        self.imgDirtAndRobot = PhotoImage(file='Images/DirtAndRobot.png')
+        self.imgJewelAndRobot = PhotoImage(file='Images/jewelAndRobot.png')
         self.imgNothing = PhotoImage(file='Images/nothing.png')
+        self.imgDirtAndJewelAndRobot = PhotoImage(file='Images/DirtAndJewelAndRobot.png')
+        
         Button(text = "Quitter", command = self.root.destroy).grid(row=5,column=4)
         for room in self.env.roomList:
             Label(self.root, image=self.imgNothing).grid(row=room.getXPos(), column=room.getYPos(), padx=4, pady=4)
@@ -24,10 +28,16 @@ class Table():
             if (room.getDirt()):
                 panel =  Label(self.root, image=self.imgDirt)
                 if (room.getJewel()):
-                    panel =  Label(self.root, image=self.imgDustAndJewel)
+                    panel =  Label(self.root, image=self.imgDirtAndJewel)
+                    if (self.robot.x == room.xPos and  self.robot.y == room.yPos):
+                        panel =  Label(self.root, image=self.imgDirtAndJewelAndRobot)
+                elif (room.getDirt() and self.robot.x == room.xPos and self.robot.y == room.yPos):
+                    panel = Label(self.root, image=self.imgDirtAndRobot)
             elif (room.getJewel()):
                 panel =  Label(self.root, image=self.imgJewel)
-            if(self.robot.x == room.xPos and  self.robot.y == room.yPos):
+                if (self.robot.x == room.xPos and  self.robot.y == room.yPos):
+                    panel = Label(self.root, image=self.imgJewelAndRobot)
+            elif (self.robot.x == room.xPos and  self.robot.y == room.yPos):
                 panel =  Label(self.root, image=self.imgRobot)
             panel.grid(row=room.getXPos(), column=room.getYPos(), padx=4, pady=4)
             
