@@ -1,7 +1,7 @@
 
 class Vertice:
 
-    def __init__(self,roomX, roomY,listRooms, roomsCleaned, roomState, dirtNumberRemaining):
+    def __init__(self,roomX, roomY,listRooms, roomsCleaned, roomsTidy, roomState, dirtNumberRemaining):
         # Coordonnées de la salle avec le robot
         self.x = roomX
         self.y = roomY
@@ -18,6 +18,8 @@ class Vertice:
 
         # Calcul de l'heuristique
         self.heuristic = self.dirtNumberRemaining + len(self.path)
+        
+        self.roomsTidy = roomsTidy
 
     def __str__(self):
         return "(" + str(self.x) + "," +  str(self.y) + ")," + str(self.heuristic) + "||"
@@ -42,3 +44,6 @@ class Vertice:
 
     def getHeuristic(self):
         return self.heuristic
+    
+    def getRoomsTidy(self):
+        return self.roomsTidy

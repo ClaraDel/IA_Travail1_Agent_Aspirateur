@@ -31,7 +31,7 @@ def main():
     root.geometry('550x550')
     root.config(bg='#30449F')
     t = Table(env, root, robot)
-    for i in range(10,30000, 5000):
+    for i in range(10,30000, 2000):
         root.after(i, t.update_draw)
 
     root.mainloop()

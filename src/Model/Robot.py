@@ -25,9 +25,10 @@ class Robot:
         # Noeud de départ ajouté à la file
         path =[]
         path2=[]
+        path3=[]
 
         #path.append((self.x,self.y))
-        firstVertice = Vertice(self.x, self.y, path, path2, False, self.env.getDirtNumber())
+        firstVertice = Vertice(self.x, self.y, path, path2, path3, False, self.env.getDirtNumber())
         verticeListToExplore.append(firstVertice)
 
 
@@ -70,21 +71,33 @@ class Robot:
         
         #print("###")
         #print(finalVertice.getPath())
+        print(previousCoordinates)
+        print(finalVertice.getPath())
+        print(finalVertice.getRoomsTidy())
+        print(finalVertice.getRoomsCleaned())
         for roomCoordinates in finalVertice.getPath():
-                #print(roomCoordinates,previousCoordinates)
-
-                if roomCoordinates == (previousCoordinates[0],previousCoordinates[1]):
+            #print(roomCoordinates,previousCoordinates)
+    
+            if roomCoordinates == (previousCoordinates[0],previousCoordinates[1]):
+                isThereJewel = False
+                for roomJewelCoordinates in finalVertice.getRoomsTidy():
+                    if(roomJewelCoordinates == (previousCoordinates[0],previousCoordinates[1])):
+                        self.actionList.append("takeObj")
+                        isThereJewel = True
+                        finalVertice.getRoomsTidy().remove(roomJewelCoordinates)
+                        break
+                if(not(isThereJewel)):
                     self.actionList.append("clean")
-                elif roomCoordinates[0] == previousCoordinates[0]-1:
-                    self.actionList.append("up")
-                elif roomCoordinates[0] == previousCoordinates[0]+1:
-                    self.actionList.append("down")
-                elif roomCoordinates[1] == previousCoordinates[1]-1:
-                    self.actionList.append("left")
-                elif roomCoordinates[1] == previousCoordinates[1]+1:
-                    self.actionList.append("right")
+            elif roomCoordinates[0] == previousCoordinates[0]-1:
+                self.actionList.append("up")
+            elif roomCoordinates[0] == previousCoordinates[0]+1:
+                self.actionList.append("down")
+            elif roomCoordinates[1] == previousCoordinates[1]-1:
+                self.actionList.append("left")
+            elif roomCoordinates[1] == previousCoordinates[1]+1:
+                self.actionList.append("right")
 
-                previousCoordinates = roomCoordinates
+            previousCoordinates = roomCoordinates
 
 
 
@@ -98,7 +111,51 @@ class Robot:
         #print("%%",vertice.getRoomsCleaned())
 
         # On regarde l'état de propreté de la salle
-        if self.env.getRoom(vertice.getX(), vertice.getY()).getDirt() and not((vertice.getX(),vertice.getY())in vertice.getRoomsCleaned()):
+        if self.env.getRoom(vertice.getX(), vertice.getY()).getJewel() and not ((vertice.getX(), vertice.getY()) in vertice.getRoomsTidy()):
+            #print("Salle non rangée")
+            #print(str(self.env.getRoom(vertice.getX(), vertice.getY()).getJewel()) + " " + str(vertice.getX()) + " " + str(vertice.getY()))
+            #print("%%",vertice.getRoomsCleaned())
+            # Cas non rangé - on ajoute le noeud suivant avec la salle rangée
+            exist = False
+            path = deepcopy(vertice.getRoomsCleaned()).append((vertice.getX(),vertice.getY()))
+            for verticeExplored in verticeListExplored:
+                #print("test",verticeExplored.getX(), verticeExplored.getY(),verticeExplored.getRoomsCleaned(),vertice.getRoomsCleaned())
+                if (verticeExplored.getX(), verticeExplored.getY()) == (vertice.getX(),vertice.getY()) and verticeExplored.getRoomsCleaned() == path:
+                    # noeuds déjà exploré dans cette branche
+                    
+                    exist=True
+                    break
+            #print("-")
+            for verticeExplored in verticeListToExplore:
+                #print("test",verticeExplored.getX(), verticeExplored.getY(),verticeExplored.getRoomsCleaned(),vertice.getRoomsCleaned())
+                if (verticeExplored.getX(), verticeExplored.getY()) == (vertice.getX(),vertice.getY()) and verticeExplored.getRoomsCleaned() == path:
+                    # noeuds déjà exploré dans cette branche
+                    
+                    exist=True
+                    break
+            if (exist):
+                    #print("noeud existant")
+                    pass
+                    
+                    
+            else:
+                    #print("%%",vertice.getRoomsCleaned())
+                    path = deepcopy(vertice.getPath())
+                    path.append((vertice.getX(),vertice.getY()))
+                    path2 = deepcopy(vertice.getRoomsCleaned())
+                    path3 = deepcopy(vertice.getRoomsTidy())
+                    path3.append((vertice.getX(),vertice.getY()))
+                    newVertice = Vertice (vertice.getX(),
+                                          vertice.getY(),
+                                          path,
+                                          path2,
+                                          path3,
+                                          self.env.getRoom(vertice.getX(),vertice.getY()).getDirt(),
+                                          vertice.getDirtNumberRemaining() 
+                                          )
+                    neighbourList.append(newVertice)
+                    #print("add cleaned")
+        elif self.env.getRoom(vertice.getX(), vertice.getY()).getDirt() and not((vertice.getX(),vertice.getY())in vertice.getRoomsCleaned()):
             #print("Salle non propre")
             #print("%%",vertice.getRoomsCleaned())
             # Cas non propre - on ajoute le noeud suivant avec la salle propre
@@ -120,7 +177,7 @@ class Robot:
                     exist=True
                     break
             if (exist):
-                    # print("noeud existant")
+                    #print("noeud existant")
                     pass
                     
                     
@@ -130,12 +187,15 @@ class Robot:
                     path.append((vertice.getX(),vertice.getY()))
                     path2 = deepcopy(vertice.getRoomsCleaned())
                     path2.append((vertice.getX(),vertice.getY()))
+                    path3 = deepcopy(vertice.getRoomsTidy())
                     newVertice = Vertice (vertice.getX(),
                                           vertice.getY(),
                                           path,
                                           path2,
+                                          path3,
                                           False,
-                                          vertice.getDirtNumberRemaining()-1)
+                                          vertice.getDirtNumberRemaining()-1
+                                          )
                     neighbourList.append(newVertice)
                     #print("add cleaned")
 
@@ -167,7 +227,8 @@ class Robot:
                         break
                 
                 if (exist):
-                    print("noeud existant")
+                    #print("noeud existant")
+                    pass
                     
                     
                 else:
@@ -176,10 +237,12 @@ class Robot:
                     path = deepcopy(vertice.getPath())
                     path.append(coord)
                     path2 = deepcopy(vertice.getRoomsCleaned())
+                    path3 = deepcopy(vertice.getRoomsTidy())
                     newVertice = Vertice(coord[0],
                                          coord[1],
                                          path,
                                          path2,
+                                         path3,
                                          self.env.getRoom(coord[0],coord[1]).getDirt(),
                                          vertice.getDirtNumberRemaining()
                                          )

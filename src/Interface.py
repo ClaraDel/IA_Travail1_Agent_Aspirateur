@@ -24,7 +24,7 @@ class Table():
                     panel =  Label(self.root, image=self.imgDustAndJewel)
             elif (room.getJewel()):
                 panel =  Label(self.root, image=self.imgJewel)
-            if(self.robot.y == room.xPos and  self.robot.x == room.yPos):
+            if(self.robot.x == room.xPos and  self.robot.y == room.yPos):
                 panel =  Label(self.root, image=self.imgRobot)
             panel.grid(row=room.getXPos(), column=room.getYPos(), padx=4, pady=4)
                 
