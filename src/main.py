@@ -35,7 +35,7 @@ def main():
     
     while(True):
         root.update()
-        #t.update_draw()
+        t.update_draw()
         time.sleep(1)
     
 if __name__ == "__main__":
