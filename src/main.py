@@ -29,14 +29,16 @@ def main():
     #root.update()
     root = Tk()
     root.title('PythonGuides')
-    root.geometry('550x550')
+    root.geometry('550x600')
     root.config(bg='#30449F')
     t = Table(env, root, robot)
     
-    while(True):
+    
+    for i in range(10):
         root.update()
         t.update_draw()
         time.sleep(1)
+    root.destroy()
     
 if __name__ == "__main__":
     main()

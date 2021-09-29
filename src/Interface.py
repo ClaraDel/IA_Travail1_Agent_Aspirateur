@@ -8,16 +8,18 @@ class Table():
         self.root = root
         self.env = env
         self.robot = robot
-
-    def update_draw(self):
         self.imgRobot = PhotoImage(file='Images/robot.png')
         self.imgDirt = PhotoImage(file='Images/dirt.png')
         self.imgJewel = PhotoImage(file='Images/jewel.png')
         self.imgDustAndJewel = PhotoImage(file='Images/DustAndJewel.png')
         self.imgNothing = PhotoImage(file='Images/nothing.png')
-        
+        Button(text = "Quitter", command = self.root.quit).grid(row=5,column=4)
         for room in self.env.roomList:
-            panel = Label(self.root, image=self.imgNothing)         
+            Label(self.root, image=self.imgNothing).grid(row=room.getXPos(), column=room.getYPos(), padx=4, pady=4)
+
+    def update_draw(self):
+        panel = Label() 
+        for room in self.env.roomList:
             if (room.getDirt()):
                 panel =  Label(self.root, image=self.imgDirt)
                 if (room.getJewel()):
