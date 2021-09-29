@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from Model.Vertice import Vertice
 from copy import deepcopy
+import time
 
 class Robot:
 
@@ -226,12 +227,7 @@ class Robot:
                         exist=True
                         break
                 
-                if (exist):
-                    #print("noeud existant")
-                    pass
-                    
-                    
-                else:
+                if (not(exist)):
                     # Salle non explorée dans cette branche
                     #print("add in neighbourList")
                     path = deepcopy(vertice.getPath())
@@ -290,4 +286,5 @@ class Robot:
             currentAction = self.actionList.pop(0)
 
             # On appelle une méthode de l'effecteur pour mettre à jour la position du robot ou lui ordonner d'aspirer la salle
-            self.effecteur.processAction2(self, currentAction)
+            self.effecteur.processAction(self, currentAction)
+            time.sleep(1)

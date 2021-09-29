@@ -3,7 +3,6 @@ from Model.Room import Room
 class Environment :
 
     def __init__(self):
-
         self.roomList = []
         self.dirtNumber = 0
         self.jewelNumber = 0

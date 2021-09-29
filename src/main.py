@@ -5,6 +5,7 @@ from Model.Capteur import Capteur
 from Model.World import World
 from tkinter import Tk
 from Interface import Table
+import time
 
 
 def main():
@@ -31,10 +32,11 @@ def main():
     root.geometry('550x550')
     root.config(bg='#30449F')
     t = Table(env, root, robot)
-    for i in range(10,30000, 2000):
-        root.after(i, t.update_draw)
-
-    root.mainloop()
+    
+    while(True):
+        root.update()
+        #t.update_draw()
+        time.sleep(1)
     
 if __name__ == "__main__":
     main()

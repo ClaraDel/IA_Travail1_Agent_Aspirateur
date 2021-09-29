@@ -4,7 +4,7 @@ class Effecteur:
     def __init__(self,env):
         self.env = env
 
-    def processAction2(self, robot, action):
+    def processAction(self, robot, action):
         if (action == "right"):
             robot.y += 1
         elif (action == "left"):

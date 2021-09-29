@@ -36,7 +36,7 @@ class World:
                     self.env.addJewel(jewel)
                     print("Jew placed in",self.env.roomList[jewel].getXPos(),",",self.env.roomList[jewel].getYPos())
             self.env.print_env()
-            time.sleep(2)
+            time.sleep(1.5)
         print("Thread environment ended")
         
         
@@ -44,7 +44,6 @@ class World:
         time.sleep(5)
         print("thread robot started \n")
         for i in range (2):
-            print("Tread robot en exécution\n")
             self.robot.ObserveAndUpdate()
             self.robot.ChooseAnAction()
             self.robot.JustDoIt()
@@ -55,8 +54,6 @@ class World:
                #     justDoIt()
                #    }   
             # beliefEnv = beliefs()
-            # explorationBFS = ExplorationGraph(beliefEnv)
-            # explorationBFS.bfs(positionRobot)
             time.sleep(5)
         print("Thread robot ended")
         
