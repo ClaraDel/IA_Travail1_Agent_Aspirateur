@@ -6,6 +6,7 @@ class Environment :
         self.roomList = []
         self.dirtNumber = 0
         self.jewelNumber = 0
+        self.realPerformance = 0
 
         # Création des 25 salles
         for i in range(5):
@@ -63,6 +64,14 @@ class Environment :
             if (room.getDirt()):
                 return False
         return True
+
+
+    def setRealPerformance(self, _realPerformance):
+        self.realPerformance = _realPerformance
+
+    def getRealPerformance(self):
+        return self.realPerformance
+
 
     # Renvoie la salle aux coordonnées (x,y)
     def getRoom(self, _x, _y):

@@ -1,7 +1,8 @@
+from copy import deepcopy
 
 class Vertice:
 
-    def __init__(self,roomX, roomY,listRooms, roomsCleaned, roomsTidy, roomState, dirtNumberRemaining):
+    def __init__(self,roomX, roomY,listRooms, roomsCleaned, roomsTidy, roomState, dirtNumberRemaining, _oldVerticeList):
         # Coordonnées de la salle avec le robot
         self.x = roomX
         self.y = roomY
@@ -19,7 +20,13 @@ class Vertice:
         # Calcul de l'heuristique
         self.heuristic = self.dirtNumberRemaining + len(self.path)
         
+        # Liste contenant les coordonnées des salles nettoyées
         self.roomsTidy = roomsTidy
+
+        # Liste contenant les vertices visités dans la branche
+        oldVerticeList = deepcopy(_oldVerticeList)
+        oldVerticeList.append(self)
+        self.visitedVerticeList = oldVerticeList
 
     def __str__(self):
         return "(" + str(self.x) + "," +  str(self.y) + ")," + str(self.heuristic) + "||"
@@ -47,3 +54,6 @@ class Vertice:
     
     def getRoomsTidy(self):
         return self.roomsTidy
+
+    def getVisitedVerticeList(self):
+        return self.visitedVerticeList

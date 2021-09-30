@@ -11,6 +11,7 @@ class Robot:
         self.x = positionX
         self.y = positionY
         self.actionList = []
+        self.verticeListToCleanState = []
 
 
 
@@ -29,7 +30,7 @@ class Robot:
         path3=[]
 
         #path.append((self.x,self.y))
-        firstVertice = Vertice(self.x, self.y, path, path2, path3, False, self.env.getDirtNumber())
+        firstVertice = Vertice(self.x, self.y, path, path2, path3, False, self.env.getDirtNumber(), [])
         verticeListToExplore.append(firstVertice)
 
 
@@ -76,6 +77,9 @@ class Robot:
         print(finalVertice.getPath())
         print(finalVertice.getRoomsTidy())
         print(finalVertice.getRoomsCleaned())
+
+        self.verticeListToCleanState = finalVertice.getVisitedVerticeList()
+
         for roomCoordinates in finalVertice.getPath():
             #print(roomCoordinates,previousCoordinates)
     
@@ -152,7 +156,8 @@ class Robot:
                                           path2,
                                           path3,
                                           self.env.getRoom(vertice.getX(),vertice.getY()).getDirt(),
-                                          vertice.getDirtNumberRemaining() 
+                                          vertice.getDirtNumberRemaining(),
+                                          vertice.getVisitedVerticeList()
                                           )
                     neighbourList.append(newVertice)
                     #print("add cleaned")
@@ -195,7 +200,8 @@ class Robot:
                                           path2,
                                           path3,
                                           False,
-                                          vertice.getDirtNumberRemaining()-1
+                                          vertice.getDirtNumberRemaining()-1,
+                                          vertice.getVisitedVerticeList()
                                           )
                     neighbourList.append(newVertice)
                     #print("add cleaned")
@@ -240,7 +246,8 @@ class Robot:
                                          path2,
                                          path3,
                                          self.env.getRoom(coord[0],coord[1]).getDirt(),
-                                         vertice.getDirtNumberRemaining()
+                                         vertice.getDirtNumberRemaining(),
+                                         vertice.getVisitedVerticeList()
                                          )
                     neighbourList.append(newVertice)
                     
@@ -276,9 +283,11 @@ class Robot:
 
 
 
-     # Le robot applique les actions contenues dans sa liste d'actions
+
+    # Le robot applique les actions contenues dans sa liste d'actions
     def JustDoIt(self):
         print(self.actionList)
+        actionIndex = 0
         # Tant que la liste d'action n'est pas vide, effectuer les actions
         while (len(self.actionList) > 0):
 
@@ -286,5 +295,6 @@ class Robot:
             currentAction = self.actionList.pop(0)
 
             # On appelle une méthode de l'effecteur pour mettre à jour la position du robot ou lui ordonner d'aspirer la salle
-            self.effecteur.processAction(self, currentAction)
+            self.effecteur.processAction(self, currentAction, self.verticeListToCleanState)
+            actionIndex += 1
             time.sleep(1)

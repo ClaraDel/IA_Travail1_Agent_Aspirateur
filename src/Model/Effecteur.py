@@ -4,7 +4,7 @@ class Effecteur:
     def __init__(self,env):
         self.env = env
 
-    def processAction(self, robot, action):
+    def processAction(self, robot, action, verticeListToCleanState):
         if (action == "right"):
             robot.y += 1
         elif (action == "left"):
