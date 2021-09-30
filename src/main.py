@@ -28,12 +28,13 @@ def main():
     root.title('PythonGuides')
     root.geometry('550x600')
     root.config(bg='#30449F')
-    t = Table(env, root, robot)
+    t = Table(env, root, robot, world)
     
-    for i in range(200):
+    #for i in range(200):
+    while(world.gameIsRunning):
         root.update()
         t.update_draw()
-        time.sleep(0.25)
+        time.sleep(0.1)
     root.destroy()
     
 if __name__ == "__main__":

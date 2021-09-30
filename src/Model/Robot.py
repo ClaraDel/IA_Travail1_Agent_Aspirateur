@@ -12,8 +12,6 @@ class Robot:
         self.y = positionY
         self.actionList = []
 
-
-
     # Observe l'environnement et récupère une copie grâce au capteur
     def ObserveAndUpdate(self):
         self.env = self.capteur.scan()

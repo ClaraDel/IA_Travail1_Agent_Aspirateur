@@ -2,10 +2,11 @@ from tkinter import Label, PhotoImage, Button
   
 class Table(): 
       
-    def __init__(self, env, root, robot): 
+    def __init__(self, env, root, robot, world): 
         self.root = root
         self.env = env
         self.robot = robot
+        self.world = world
         self.imgRobot = PhotoImage(file='Images/robot.png')
         self.imgDirt = PhotoImage(file='Images/dirt.png')
         self.imgJewel = PhotoImage(file='Images/jewel.png')
@@ -15,7 +16,8 @@ class Table():
         self.imgNothing = PhotoImage(file='Images/nothing.png')
         self.imgDirtAndJewelAndRobot = PhotoImage(file='Images/DirtAndJewelAndRobot.png')
         
-        Button(text = "Quitter", command = self.root.destroy).grid(row=5,column=4)
+        Button(text = "Quitter", command = self.stop).grid(row=5,column=4)
+        
         for room in self.env.roomList:
             Label(self.root, image=self.imgNothing).grid(row=room.getXPos(), column=room.getYPos(), padx=4, pady=4)
 
@@ -40,8 +42,8 @@ class Table():
             panel.grid(row=room.getXPos(), column=room.getYPos(), padx=4, pady=4)
             
                 
-                
-    def close_env(self, root):
-        root.quit()
+    def stop(self):
+        self.world.gameIsRunning = False
+        self.root.destroy()
 
                           

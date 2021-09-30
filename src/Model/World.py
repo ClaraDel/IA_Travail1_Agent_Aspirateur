@@ -7,15 +7,15 @@ class World:
     def __init__(self, env, robot):
         self.env = env
         self.robot = robot
-        #print("Main: before creating thread")
+        self.gameIsRunning = True
         thread_e = threading.Thread(target=self.thread_env, args=(1,))
         thread_r = threading.Thread(target=self.thread_robot, args=(1,))
         thread_e.start()
         thread_r.start()
 
-    def thread_env(self , name):
+    def thread_env(self, name):
         print("thread environment started \n")
-        for i in range(20):
+        while (self.gameIsRunning):
             dirtProbability = random.randrange(3)
             if (dirtProbability <= 1):
                 # Placement des poussières et incrémentation du nombre de poussières dans l'environnement
@@ -40,7 +40,7 @@ class World:
     def thread_robot(self , name):
         time.sleep(5)
         print("thread robot started \n")
-        for i in range (10):
+        while (self.gameIsRunning):
             self.robot.ObserveAndUpdate()
             self.robot.ChooseAnAction()
             self.robot.JustDoIt()
