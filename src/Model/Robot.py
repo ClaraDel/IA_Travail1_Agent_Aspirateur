@@ -283,7 +283,11 @@ class Robot:
                 return [(x-1,y), (x+1,y), (x, y-1), (x,y+1)]
 
 
+    def getXPos(self):
+        return self.x
     
+    def getYPos(self):
+        return self.y
 
 
 

@@ -89,7 +89,15 @@ class Environment :
                 dirtyRoomsPosition.append((room.getXPos(), room.getYPos()))
         return dirtyRoomsPosition
 
+    def checkMyPerformance(self, robot):
+        self.performanceRobot += self.InverseManhattanDistance((robot.getXPos(), robot.getYPos())) + 1 # 1 correspond à l'energie
 
+    def InverseManhattanDistance(self, position):
+        invManhattan = 0
+        for coord in self.getDirtyRoomsPosition():
+            invManhattan += 10 - (abs(position[0] - coord[0]) + abs(position[1] - coord[1]))
+        return invManhattan
+    
     def ManhattanDistance(self, position):
         manhattan = 0
         for coord in self.getDirtyRoomsPosition():
