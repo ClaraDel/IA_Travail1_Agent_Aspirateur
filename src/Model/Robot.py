@@ -42,7 +42,7 @@ class Robot:
             verticeListToExplore.sort(key=lambda myVertices: myVertices.getHeuristic())
             currentVertice = verticeListToExplore.pop(0)
             
-           # print("Noeud pop",currentVertice.getX(),currentVertice.getY())
+           # ()("Noeud pop",currentVertice.getX(),currentVertice.getY())
 
             # Trouver ces voisins
             neighbours = self.addNeighbours(currentVertice,verticeListToExplore, verticeListExplored)
@@ -70,14 +70,10 @@ class Robot:
 
         # On va reconstituer la liste d'action en fonction du chemin vers le noeud final et des salles nettoyées
         
-        #print("###")
-        #print(finalVertice.getPath())
-        print(previousCoordinates)
-        print(finalVertice.getPath())
-        print(finalVertice.getRoomsTidy())
-        print(finalVertice.getRoomsCleaned())
+        print("Chemin du robot : ", finalVertice.getPath())
+        print("Salles sales : ", finalVertice.getRoomsTidy())
+        print("Salles nettoyées : ", finalVertice.getRoomsCleaned())
         for roomCoordinates in finalVertice.getPath():
-            #print(roomCoordinates,previousCoordinates)
     
             if roomCoordinates == (previousCoordinates[0],previousCoordinates[1]):
                 isThereJewel = False

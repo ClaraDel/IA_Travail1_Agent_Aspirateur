@@ -30,10 +30,10 @@ def main():
     root.config(bg='#30449F')
     t = Table(env, root, robot)
     
-    for i in range(50):
+    for i in range(200):
         root.update()
         t.update_draw()
-        time.sleep(1)
+        time.sleep(0.25)
     root.destroy()
     
 if __name__ == "__main__":
