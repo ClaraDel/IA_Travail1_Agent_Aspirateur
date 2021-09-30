@@ -54,6 +54,6 @@ class World:
                #     justDoIt()
                #    }   
             # beliefEnv = beliefs()
-            time.sleep(5)
+            time.sleep(3)
         print("Thread robot ended")
         

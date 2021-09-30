@@ -1,6 +1,4 @@
-from tkinter import *
-from PIL import ImageTk,Image  
-import time
+from tkinter import Label, PhotoImage, Button
   
 class Table(): 
       
