@@ -2,11 +2,10 @@ from copy import deepcopy
 
 class Vertice:
 
-    def __init__(self,roomX, roomY,listRooms, roomsCleaned, roomsTidy, roomState, dirtNumberRemaining, _oldVerticeList):
+    def __init__(self,roomX, roomY,listRooms, roomsCleaned, roomsTidy, roomState, manhattanHeuristic, previousHeuristicSum):
         # Coordonnées de la salle avec le robot
         self.x = roomX
         self.y = roomY
-        self.dirtNumberRemaining = dirtNumberRemaining
         
         # Etat propre ou sale
         self.clean = roomState
@@ -18,15 +17,13 @@ class Vertice:
         self.roomsCleaned = roomsCleaned
 
         # Calcul de l'heuristique
-        self.heuristic = self.dirtNumberRemaining + len(self.path)
+        self.heuristic = manhattanHeuristic + len(self.path)
         
         # Liste contenant les coordonnées des salles nettoyées
         self.roomsTidy = roomsTidy
 
-        # Liste contenant les vertices visités dans la branche
-        oldVerticeList = deepcopy(_oldVerticeList)
-        oldVerticeList.append(self)
-        self.visitedVerticeList = oldVerticeList
+        # Somme des heuristiques des noeuds précédents
+        self.heuristicSum = previousHeuristicSum + self.heuristic
 
     def __str__(self):
         return "(" + str(self.x) + "," +  str(self.y) + ")," + str(self.heuristic) + "||"
@@ -46,14 +43,11 @@ class Vertice:
     def getRoomsCleaned(self):
         return self.roomsCleaned
 
-    def getDirtNumberRemaining(self):
-        return self.dirtNumberRemaining
-
     def getHeuristic(self):
         return self.heuristic
     
     def getRoomsTidy(self):
         return self.roomsTidy
 
-    def getVisitedVerticeList(self):
-        return self.visitedVerticeList
+    def getHeuristicSum(self):
+        return self.heuristicSum
