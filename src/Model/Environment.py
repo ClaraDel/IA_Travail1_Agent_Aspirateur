@@ -90,7 +90,7 @@ class Environment :
         return dirtyRoomsPosition
 
     def checkMyPerformance(self, robot):
-        self.performanceRobot += self.InverseManhattanDistance((robot.getXPos(), robot.getYPos())) + 1 # +1 correspond à l'energie dépensée par le robot
+        self.realPerformance += self.InverseManhattanDistance((robot.getXPos(), robot.getYPos())) + 1 # +1 correspond à l'energie dépensée par le robot
 
     def InverseManhattanDistance(self, position):
         invManhattan = 0

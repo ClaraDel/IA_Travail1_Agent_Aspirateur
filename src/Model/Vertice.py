@@ -2,7 +2,7 @@ from copy import deepcopy
 
 class Vertice:
 
-    def __init__(self,roomX, roomY,listRooms, roomsCleaned, roomsTidy, roomState, manhattanHeuristic, previousHeuristicSum):
+    def __init__(self,roomX, roomY,listRooms, roomsCleaned, roomsTidy, roomState, manhattanHeuristic, previousTheoricalPerformance):
         # Coordonnées de la salle avec le robot
         self.x = roomX
         self.y = roomY
@@ -23,7 +23,7 @@ class Vertice:
         self.roomsTidy = roomsTidy
 
         # Somme des heuristiques des noeuds précédents
-        self.heuristicSum = previousHeuristicSum + self.heuristic
+        self.theoricalPerformance = previousTheoricalPerformance
 
     def __str__(self):
         return "(" + str(self.x) + "," +  str(self.y) + ")," + str(self.heuristic) + "||"
@@ -49,5 +49,5 @@ class Vertice:
     def getRoomsTidy(self):
         return self.roomsTidy
 
-    def getHeuristicSum(self):
-        return self.heuristicSum
+    def getTheoricalPerformance(self):
+        return self.theoricalPerformance

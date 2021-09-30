@@ -157,7 +157,7 @@ class Robot:
                                           path3,
                                           self.env.getRoom(vertice.getX(),vertice.getY()).getDirt(),
                                           self.env.ManhattanDistance([vertice.getX(), vertice.getY()]),
-                                          vertice.getHeuristic()
+                                          vertice.getTheoricalPerformance() + self.env.InverseManhattanDistance([self.x, self.y])
                                           )
                     neighbourList.append(newVertice)
                     #print("add cleaned")
@@ -202,7 +202,7 @@ class Robot:
                                       path3,
                                       False,
                                       self.env.ManhattanDistance([vertice.getX(), vertice.getY()]),
-                                      vertice.getHeuristic()
+                                      vertice.getTheoricalPerformance() + self.env.InverseManhattanDistance([self.x, self.y])
                                       )
                 neighbourList.append(newVertice)
                 #print("add cleaned")
@@ -248,7 +248,7 @@ class Robot:
                                          path3,
                                          self.env.getRoom(coord[0],coord[1]).getDirt(),
                                          self.env.ManhattanDistance([vertice.getX(), vertice.getY()]),
-                                         vertice.getHeuristic()
+                                         vertice.getTheoricalPerformance() + self.env.InverseManhattanDistance([self.x, self.y])
                                          )
                     neighbourList.append(newVertice)
                     
@@ -302,6 +302,6 @@ class Robot:
             currentAction = self.actionList.pop(0)
 
             # On appelle une méthode de l'effecteur pour mettre à jour la position du robot ou lui ordonner d'aspirer la salle
-            self.effecteur.processAction(self, currentAction, self.verticeListToCleanState)
+            self.effecteur.processAction(self, currentAction)
             actionIndex += 1
             time.sleep(1)
