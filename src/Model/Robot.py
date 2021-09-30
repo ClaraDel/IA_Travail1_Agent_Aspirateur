@@ -32,8 +32,10 @@ class Robot:
         firstVertice = Vertice(self.x, self.y, path, path2, path3, False, self.env.getDirtNumber())
         verticeListToExplore.append(firstVertice)
 
-
+        
         end = False   # Condition d'arret (état propre trouvé)
+        if(self.env.getDirtNumber() == 0):
+            return
 
         # Tant qu'il y a des noeuds à explorer et que la condition d'arret n'est pas atteinte
         while(not(end) and len(verticeListToExplore)>0):
@@ -152,7 +154,7 @@ class Robot:
                                           path2,
                                           path3,
                                           self.env.getRoom(vertice.getX(),vertice.getY()).getDirt(),
-                                          vertice.getDirtNumberRemaining() 
+                                          self.ManhattanDistance((vertice.getX(), vertice.getY()), self.env.getDirtyRoomsPosition())
                                           )
                     neighbourList.append(newVertice)
                     #print("add cleaned")
@@ -183,22 +185,23 @@ class Robot:
                     
                     
             else:
-                    #print("%%",vertice.getRoomsCleaned())
-                    path = deepcopy(vertice.getPath())
-                    path.append((vertice.getX(),vertice.getY()))
-                    path2 = deepcopy(vertice.getRoomsCleaned())
-                    path2.append((vertice.getX(),vertice.getY()))
-                    path3 = deepcopy(vertice.getRoomsTidy())
-                    newVertice = Vertice (vertice.getX(),
-                                          vertice.getY(),
-                                          path,
-                                          path2,
-                                          path3,
-                                          False,
-                                          vertice.getDirtNumberRemaining()-1
-                                          )
-                    neighbourList.append(newVertice)
-                    #print("add cleaned")
+                self.env.getDirtyRoomsPosition().remove((vertice.getX(), vertice.getY()))
+                #print("%%",vertice.getRoomsCleaned())
+                path = deepcopy(vertice.getPath())
+                path.append((vertice.getX(),vertice.getY()))
+                path2 = deepcopy(vertice.getRoomsCleaned())
+                path2.append((vertice.getX(),vertice.getY()))
+                path3 = deepcopy(vertice.getRoomsTidy())
+                newVertice = Vertice (vertice.getX(),
+                                      vertice.getY(),
+                                      path,
+                                      path2,
+                                      path3,
+                                      False,
+                                      self.ManhattanDistance((vertice.getX(), vertice.getY()), self.env.getDirtyRoomsPosition())
+                                      )
+                neighbourList.append(newVertice)
+                #print("add cleaned")
 
         else:
             # Cas propre
@@ -240,7 +243,7 @@ class Robot:
                                          path2,
                                          path3,
                                          self.env.getRoom(coord[0],coord[1]).getDirt(),
-                                         vertice.getDirtNumberRemaining()
+                                         self.ManhattanDistance((vertice.getX(), vertice.getY()), self.env.getDirtyRoomsPosition())
                                          )
                     neighbourList.append(newVertice)
                     
@@ -274,6 +277,12 @@ class Robot:
             else:
                 return [(x-1,y), (x+1,y), (x, y-1), (x,y+1)]
 
+
+    def ManhattanDistance(self, position, allCoords):
+        manhattan = 0
+        for coord in allCoords:
+            manhattan += abs(position[0] - coord[0]) + abs(position[1] - coord[1])
+        return manhattan
 
 
      # Le robot applique les actions contenues dans sa liste d'actions

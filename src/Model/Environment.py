@@ -73,6 +73,12 @@ class Environment :
             if room.getXPos() == _x and room.getYPos() == _y:
                 return room"""
 
+    def getDirtyRoomsPosition(self):
+        dirtyRoomsPosition = []
+        for room in self.roomList:
+            if(room.getDirt()):
+                dirtyRoomsPosition.append((room.getXPos(), room.getYPos()))
+        return dirtyRoomsPosition
 
     # Display the env in console
     def print_env(self):
