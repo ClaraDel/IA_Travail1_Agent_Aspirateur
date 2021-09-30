@@ -30,7 +30,7 @@ class Robot:
         path3=[]
 
         #path.append((self.x,self.y))
-        firstVertice = Vertice(self.x, self.y, path, path2, path3, False, self.env.getDirtNumber(), [])
+        firstVertice = Vertice(self.x, self.y, path, path2, path3, False, self.env.ManhattanDistance([self.x, self.y]), 0)
         verticeListToExplore.append(firstVertice)
 
         
@@ -79,8 +79,6 @@ class Robot:
         print(finalVertice.getPath())
         print(finalVertice.getRoomsTidy())
         print(finalVertice.getRoomsCleaned())
-
-        self.verticeListToCleanState = finalVertice.getVisitedVerticeList()
 
         for roomCoordinates in finalVertice.getPath():
             #print(roomCoordinates,previousCoordinates)
@@ -158,7 +156,7 @@ class Robot:
                                           path2,
                                           path3,
                                           self.env.getRoom(vertice.getX(),vertice.getY()).getDirt(),
-                                          self.ManhattanDistance([vertice.getX(), vertice.getY()]),
+                                          self.env.ManhattanDistance([vertice.getX(), vertice.getY()]),
                                           vertice.getHeuristic()
                                           )
                     neighbourList.append(newVertice)
@@ -203,7 +201,7 @@ class Robot:
                                       path2,
                                       path3,
                                       False,
-                                      self.ManhattanDistance([vertice.getX(), vertice.getY()]),
+                                      self.env.ManhattanDistance([vertice.getX(), vertice.getY()]),
                                       vertice.getHeuristic()
                                       )
                 neighbourList.append(newVertice)
@@ -249,7 +247,7 @@ class Robot:
                                          path2,
                                          path3,
                                          self.env.getRoom(coord[0],coord[1]).getDirt(),
-                                         self.ManhattanDistance([vertice.getX(), vertice.getY()]),
+                                         self.env.ManhattanDistance([vertice.getX(), vertice.getY()]),
                                          vertice.getHeuristic()
                                          )
                     neighbourList.append(newVertice)

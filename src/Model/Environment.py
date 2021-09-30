@@ -89,6 +89,14 @@ class Environment :
                 dirtyRoomsPosition.append((room.getXPos(), room.getYPos()))
         return dirtyRoomsPosition
 
+
+    def ManhattanDistance(self, position):
+        manhattan = 0
+        for coord in self.getDirtyRoomsPosition():
+            manhattan += abs(position[0] - coord[0]) + abs(position[1] - coord[1])
+        return manhattan
+
+
     # Display the env in console
     def print_env(self):
         column = 0
