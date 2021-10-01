@@ -5,16 +5,15 @@ import time
 
 class Robot:
 
-    def __init__(self, capteur, effecteur, positionX, positionY):
+    def __init__(self, capteur, effecteur, positionX, positionY, explorationType):
         self.capteur = capteur
         self.effecteur = effecteur
         self.x = positionX
         self.y = positionY
+        self.explorationType = explorationType
         self.actionList = []
         self.verticeListToCleanState = []
         self.needToRescan = False
-
-
 
     # Observe l'environnement et récupère une copie grâce au capteur
     def ObserveAndUpdate(self):
@@ -45,10 +44,12 @@ class Robot:
         while(not(end) and len(verticeListToExplore)>0):
             #print("--\nITERATION\n--")
             # Pop la file pour récupérer le prochain noeud à explorer
-            verticeListToExplore.sort(key=lambda myVertices: myVertices.getHeuristic())
+            if (self.explorationType == "Informé"):
+                verticeListToExplore.sort(key=lambda myVertices: myVertices.getHeuristic())
+                
             currentVertice = verticeListToExplore.pop(0)
             
-           # print("Noeud pop",currentVertice.getX(),currentVertice.getY())
+           # ()("Noeud pop",currentVertice.getX(),currentVertice.getY())
 
             # Trouver ces voisins
             neighbours = self.addNeighbours(currentVertice,verticeListToExplore, verticeListExplored)

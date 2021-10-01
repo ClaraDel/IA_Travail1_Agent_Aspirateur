@@ -7,19 +7,16 @@ class World:
     def __init__(self, env, robot):
         self.env = env
         self.robot = robot
-        #print("Main: before creating thread")
+        self.gameIsRunning = True
         thread_e = threading.Thread(target=self.thread_env, args=(1,))
         thread_r = threading.Thread(target=self.thread_robot, args=(1,))
         thread_e.start()
         thread_r.start()
-        
-        #x.join()
-        #print("Main    : all done")
 
-    def thread_env(self , name):
+    def thread_env(self, name):
         print("thread environment started \n")
-        for i in range(30):
-            dirtProbability = random.randrange(3)
+        while (self.gameIsRunning):
+            dirtProbability = random.randrange(4)
             if (dirtProbability <= 1):
                 # Placement des poussières et incrémentation du nombre de poussières dans l'environnement
                 dirt = random.randrange(25)
@@ -28,7 +25,7 @@ class World:
                     self.env.addDirt(dirt)
                     print("Dirt placed in",self.env.roomList[dirt].getXPos(),",",self.env.roomList[dirt].getYPos())
             
-            jewelProbability = random.randrange(15)
+            jewelProbability = random.randrange(11)
             if (jewelProbability <= 1):
                 # Placement des bijoux et incrémentation du nombre de bijoux dans l'environnement
                 jewel = random.randrange(25)
@@ -43,17 +40,11 @@ class World:
     def thread_robot(self , name):
         time.sleep(5)
         print("thread robot started \n")
-        for i in range (3):
+        while (self.gameIsRunning):
             self.robot.ObserveAndUpdate()
             self.robot.ChooseAnAction()
             self.robot.JustDoIt()
-               # While (amIAlive()){
-               #     ObserveEnvironmentWithAllMySensors()
-               #     UpdateMyState()
-               #     ChooseAnAction()
-               #     justDoIt()
-               #    }   
-            # beliefEnv = beliefs()
-            time.sleep(5)
+            time.sleep(2)
         print("Thread robot ended")
+        
         
