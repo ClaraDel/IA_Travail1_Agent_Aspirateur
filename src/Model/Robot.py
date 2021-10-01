@@ -12,7 +12,6 @@ class Robot:
         self.y = positionY
         self.explorationType = explorationType
         self.actionList = []
-        self.verticeListToCleanState = []
         self.needToRescan = False
 
     # Observe l'environnement et récupère une copie grâce au capteur
