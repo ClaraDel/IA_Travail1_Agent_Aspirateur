@@ -48,6 +48,7 @@ def main():
             root.update()
             t.update_draw()
             time.sleep(0.05)
+            
     elif (popUp.choix == "quitter"):
         print("Simulation non lancée.")
         

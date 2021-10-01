@@ -17,7 +17,7 @@ class Table():
         self.imgNothing = PhotoImage(file='Images/nothing.png')
         self.imgDirtAndJewelAndRobot = PhotoImage(file='Images/DirtAndJewelAndRobot.png')
         
-        Button(self.root, text = "Quitter", command = self.stop).grid(row=5,column=4)
+        Button(self.root, text = "Quitter", command = self.stop, activebackground  = '#F5F5F5').grid(row=5,column=4, pady = 10, ipadx = 6, ipady = 3)
         
         for room in self.env.roomList:
             Label(self.root, image=self.imgNothing).grid(row=room.getXPos(), column=room.getYPos(), padx=4, pady=4)
@@ -41,14 +41,6 @@ class Table():
             elif (self.robot.x == room.xPos and  self.robot.y == room.yPos):
                 panel =  Label(self.root, image=self.imgRobot)
             panel.grid(row=room.getXPos(), column=room.getYPos(), padx=4, pady=4)
-            
-    def switchExpl(self):
-        if(self.world.explorationType == "Non informé") :
-            self.world.explorationType = "Informé"
-            self.boutonSwitchExpl['text'] = 'Passer en non informé'
-        else :
-            self.world.explorationType = "Non informé"
-            self.boutonSwitchExpl['text'] = 'Passer en informé' 
         
     def stop(self):
         self.world.gameIsRunning = False
@@ -85,8 +77,8 @@ class PopUp():
                        variable=self.explorationType, 
                        value="Non informé").grid(row=4,column=1, sticky='w')
         
-        Button(self.rootPopup, text = "Valider", command = self.valider, padx = 10).grid(row=5,column=1, sticky='se', pady = 10, padx = 60)
-        Button(self.rootPopup, text = "Quitter", command = self.quitter).grid(row=5,column=1, pady = 10, sticky='se')
+        Button(self.rootPopup, text = "Valider", command = self.valider, padx = 10, activebackground  = '#F5F5F5').grid(row=5,column=1, sticky='se', pady = 10, padx = 60)
+        Button(self.rootPopup, text = "Quitter", command = self.quitter, activebackground  = '#F5F5F5').grid(row=5,column=1, pady = 10, sticky='se')
         
     def valider(self):
         self.choix = "continuer"
