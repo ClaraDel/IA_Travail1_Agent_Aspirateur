@@ -259,7 +259,6 @@ class Robot:
                                          )
                     neighbourList.append(newVertice)
                     
-        # TODO gérer quand on a tout exploré
         return neighbourList
 
 
