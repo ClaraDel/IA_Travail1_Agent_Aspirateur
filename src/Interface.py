@@ -61,32 +61,39 @@ class PopUp():
         self.rootPopup = rootPopup
         self.explorationType = StringVar()
         self.explorationType.set("Informé")
+        self.choix = ""
         
     def lancer(self) :
         
         Label(self.rootPopup, 
-                text="Bienvenue sur cette simulation d'un \nagent aspirateur dans un manoir !",
-                 pady = 10, anchor  ='center').grid(row=1,column=1)
+                text="Bienvenue sur cette simulation d'un agent aspirateur dans un manoir !",
+                 padx = 20, pady = 10, anchor  ='center').grid(row=1,column=1, sticky='w')
                 
         Label(self.rootPopup, 
                 text="Quel type d'exploration voulez-vous utiliser ?",
-                padx = 20, pady = 10, justify ="left").grid(row=2,column=1)
+                padx = 20, pady = 5, justify ="left").grid(row=2,column=1, sticky='w')
         
         Radiobutton(self.rootPopup, 
                        text="Informé",
-                       padx = 20, pady = 10, anchor  ='w',
-                       variable=self.explorationType, 
-                       value="Informé").grid(row=3,column=1)
+                       padx = 20, pady = 5, 
+                       variable=self.explorationType,
+                       value="Informé").grid(row=3,column=1, sticky='w')
         
         Radiobutton(self.rootPopup, 
                        text="Non informé",
                        padx = 20, 
-                       variable=self.explorationType, anchor  ='w',
-                       value="Non informé").grid(row=4,column=1)
+                       variable=self.explorationType, 
+                       value="Non informé").grid(row=4,column=1, sticky='w')
         
-        Button(self.rootPopup, text = "Valider", command = self.valider).grid(row=5,column=2)
+        Button(self.rootPopup, text = "Valider", command = self.valider, padx = 10).grid(row=5,column=1, sticky='se', pady = 10, padx = 60)
+        Button(self.rootPopup, text = "Quitter", command = self.quitter).grid(row=5,column=1, pady = 10, sticky='se')
         
     def valider(self):
+        self.choix = "continuer"
+        self.rootPopup.destroy()
+        
+    def quitter(self):
+        self.choix = "quitter"
         self.rootPopup.destroy()
         
             
