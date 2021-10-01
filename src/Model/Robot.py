@@ -5,11 +5,12 @@ import time
 
 class Robot:
 
-    def __init__(self, capteur, effecteur, positionX, positionY):
+    def __init__(self, capteur, effecteur, positionX, positionY, explorationType):
         self.capteur = capteur
         self.effecteur = effecteur
         self.x = positionX
         self.y = positionY
+        self.explorationType = explorationType
         self.actionList = []
 
     # Observe l'environnement et récupère une copie grâce au capteur
@@ -29,7 +30,6 @@ class Robot:
         #path.append((self.x,self.y))
         firstVertice = Vertice(self.x, self.y, path, path2, path3, False, self.env.getDirtNumber())
         verticeListToExplore.append(firstVertice)
-
 
         end = False   # Condition d'arret (état propre trouvé)
 
@@ -275,7 +275,6 @@ class Robot:
         print(self.actionList)
         # Tant que la liste d'action n'est pas vide, effectuer les actions
         while (len(self.actionList) > 0):
-
             # Pop la file
             currentAction = self.actionList.pop(0)
 

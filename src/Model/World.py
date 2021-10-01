@@ -33,7 +33,7 @@ class World:
                     self.env.addJewel(jewel)
                     print("Jew placed in",self.env.roomList[jewel].getXPos(),",",self.env.roomList[jewel].getYPos())
             self.env.print_env()
-            time.sleep(2.5)
+            time.sleep(2)
         print("Thread environment ended")
         
         
@@ -44,13 +44,7 @@ class World:
             self.robot.ObserveAndUpdate()
             self.robot.ChooseAnAction()
             self.robot.JustDoIt()
-               # While (amIAlive()){
-               #     ObserveEnvironmentWithAllMySensors()
-               #     UpdateMyState()
-               #     ChooseAnAction()
-               #     justDoIt()
-               #    }   
-            # beliefEnv = beliefs()
-            time.sleep(3)
+            time.sleep(2)
         print("Thread robot ended")
+        
         

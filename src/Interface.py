@@ -1,4 +1,5 @@
-from tkinter import Label, PhotoImage, Button
+from tkinter import Label, PhotoImage, Button, Radiobutton, StringVar
+import time
   
 class Table(): 
       
@@ -16,7 +17,7 @@ class Table():
         self.imgNothing = PhotoImage(file='Images/nothing.png')
         self.imgDirtAndJewelAndRobot = PhotoImage(file='Images/DirtAndJewelAndRobot.png')
         
-        Button(text = "Quitter", command = self.stop).grid(row=5,column=4)
+        Button(self.root, text = "Quitter", command = self.stop).grid(row=5,column=4)
         
         for room in self.env.roomList:
             Label(self.root, image=self.imgNothing).grid(row=room.getXPos(), column=room.getYPos(), padx=4, pady=4)
@@ -41,9 +42,54 @@ class Table():
                 panel =  Label(self.root, image=self.imgRobot)
             panel.grid(row=room.getXPos(), column=room.getYPos(), padx=4, pady=4)
             
-                
+    def switchExpl(self):
+        if(self.world.explorationType == "Non informé") :
+            self.world.explorationType = "Informé"
+            self.boutonSwitchExpl['text'] = 'Passer en non informé'
+        else :
+            self.world.explorationType = "Non informé"
+            self.boutonSwitchExpl['text'] = 'Passer en informé' 
+        
     def stop(self):
         self.world.gameIsRunning = False
+        time.sleep(1)
         self.root.destroy()
+        
+class PopUp(): 
+    
+    def __init__(self, rootPopup):
+        self.rootPopup = rootPopup
+        self.explorationType = StringVar()
+        self.explorationType.set("Informé")
+        
+    def lancer(self) :
+        
+        Label(self.rootPopup, 
+                text="Bienvenue sur cette simulation d'un \nagent aspirateur dans un manoir !",
+                 pady = 10, anchor  ='center').grid(row=1,column=1)
+                
+        Label(self.rootPopup, 
+                text="Quel type d'exploration voulez-vous utiliser ?",
+                padx = 20, pady = 10, justify ="left").grid(row=2,column=1)
+        
+        Radiobutton(self.rootPopup, 
+                       text="Informé",
+                       padx = 20, pady = 10, anchor  ='w',
+                       variable=self.explorationType, 
+                       value="Informé").grid(row=3,column=1)
+        
+        Radiobutton(self.rootPopup, 
+                       text="Non informé",
+                       padx = 20, 
+                       variable=self.explorationType, anchor  ='w',
+                       value="Non informé").grid(row=4,column=1)
+        
+        Button(self.rootPopup, text = "Valider", command = self.valider).grid(row=5,column=2)
+        
+    def valider(self):
+        self.rootPopup.destroy()
+        
+            
+        
 
                           

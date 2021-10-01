@@ -3,8 +3,8 @@ from Model.Effecteur import Effecteur
 from Model.Robot import Robot
 from Model.Capteur import Capteur
 from Model.World import World
-from tkinter import Tk
-from Interface import Table
+from tkinter import Tk, PhotoImage
+from Interface import Table, PopUp
 import time
 
 
@@ -17,7 +17,17 @@ def main():
     capteur = Capteur(env)
     positionX = 1  # RANDOM ? A mettre dans world?
     positionY = 1
-    robot = Robot(capteur, effecteur, positionX, positionY)
+    
+    rootPopup = Tk()
+    rootPopup.geometry('350x200')
+    rootPopup.title("Choix d'exploration")
+    rootPopup.iconphoto(False, PhotoImage(file='Images/robot.png'))
+    popUp = PopUp(rootPopup)
+    popUp.lancer()
+    rootPopup.mainloop()
+    print("Exploration ", popUp.explorationType.get(), "e choisie.")   
+    
+    robot = Robot(capteur, effecteur, positionX, positionY, popUp.explorationType.get())
     
     # Ajout des deux éléments dans notre monde (lancement des threads)
     world = World(env, robot)
@@ -25,19 +35,18 @@ def main():
     # Gestion de l'interface
     #root.update()
     root = Tk()
-    root.title('PythonGuides')
+    root.title('Manoir et robot intelligent')
+    root.iconphoto(False, PhotoImage(file='Images/robot.png'))
     root.geometry('550x600')
     root.config(bg='#30449F')
     t = Table(env, root, robot, world)
+    
     
     #for i in range(200):
     while(world.gameIsRunning):
         root.update()
         t.update_draw()
-        time.sleep(0.1)
-    root.destroy()
-    
-if __name__ == "__main__":
+        time.sleep(0.05)
+        
+if __name__ == "__main__":  
     main()
-            
-    
