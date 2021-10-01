@@ -15,7 +15,7 @@ def main():
     # Création de l'agent 
     effecteur = Effecteur(env)
     capteur = Capteur(env)
-    positionX = 1  # RANDOM ? A mettre dans world?
+    positionX = 1
     positionY = 1
     
     rootPopup = Tk()
