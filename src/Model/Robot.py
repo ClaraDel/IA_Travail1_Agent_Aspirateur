@@ -30,7 +30,9 @@ class Robot:
         path3=[]
 
         #path.append((self.x,self.y))
-        firstVertice = Vertice(self.x, self.y, path, path2, path3, False, self.env.ManhattanDistance([self.x, self.y]), 0)
+        firstVertice = Vertice(self.x, self.y, path, path2, path3, False, self.env.ManhattanDistance([self.x, self.y]), [],
+                                    self.env.InverseManhattanDistance([self.x, self.y]))
+                                    
         verticeListToExplore.append(firstVertice)
 
         
@@ -60,7 +62,7 @@ class Robot:
                     end = True
                     #print("end")
                     # On sauvegarde le dernier noeud
-                    finalVertice = neighbour
+                    self.finalVertice = neighbour
 
                 else:
                     #print("Added to list")
@@ -76,20 +78,20 @@ class Robot:
         #print("###")
         #print(finalVertice.getPath())
         print(previousCoordinates)
-        print(finalVertice.getPath())
-        print(finalVertice.getRoomsTidy())
-        print(finalVertice.getRoomsCleaned())
+        print(self.finalVertice.getPath())
+        print(self.finalVertice.getRoomsTidy())
+        print(self.finalVertice.getRoomsCleaned())
 
-        for roomCoordinates in finalVertice.getPath():
+        for roomCoordinates in self.finalVertice.getPath():
             #print(roomCoordinates,previousCoordinates)
     
             if roomCoordinates == (previousCoordinates[0],previousCoordinates[1]):
                 isThereJewel = False
-                for roomJewelCoordinates in finalVertice.getRoomsTidy():
+                for roomJewelCoordinates in self.finalVertice.getRoomsTidy():
                     if(roomJewelCoordinates == (previousCoordinates[0],previousCoordinates[1])):
                         self.actionList.append("takeObj")
                         isThereJewel = True
-                        finalVertice.getRoomsTidy().remove(roomJewelCoordinates)
+                        self.finalVertice.getRoomsTidy().remove(roomJewelCoordinates)
                         break
                 if(not(isThereJewel)):
                     self.actionList.append("clean")
@@ -157,7 +159,8 @@ class Robot:
                                           path3,
                                           self.env.getRoom(vertice.getX(),vertice.getY()).getDirt(),
                                           self.env.ManhattanDistance([vertice.getX(), vertice.getY()]),
-                                          vertice.getTheoricalPerformance() + self.env.InverseManhattanDistance([self.x, self.y])
+                                          vertice.getTheoricalPerformanceTab(),
+                                          self.env.InverseManhattanDistance([vertice.getX(), vertice.getY()])
                                           )
                     neighbourList.append(newVertice)
                     #print("add cleaned")
@@ -202,7 +205,8 @@ class Robot:
                                       path3,
                                       False,
                                       self.env.ManhattanDistance([vertice.getX(), vertice.getY()]),
-                                      vertice.getTheoricalPerformance() + self.env.InverseManhattanDistance([self.x, self.y])
+                                      vertice.getTheoricalPerformanceTab(),
+                                      self.env.InverseManhattanDistance([vertice.getX(), vertice.getY()])
                                       )
                 neighbourList.append(newVertice)
                 #print("add cleaned")
@@ -248,7 +252,8 @@ class Robot:
                                          path3,
                                          self.env.getRoom(coord[0],coord[1]).getDirt(),
                                          self.env.ManhattanDistance([vertice.getX(), vertice.getY()]),
-                                         vertice.getTheoricalPerformance() + self.env.InverseManhattanDistance([self.x, self.y])
+                                         vertice.getTheoricalPerformanceTab(),
+                                         self.env.InverseManhattanDistance([vertice.getX(), vertice.getY()])
                                          )
                     neighbourList.append(newVertice)
                     
