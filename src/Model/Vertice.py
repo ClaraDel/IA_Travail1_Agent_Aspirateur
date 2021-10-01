@@ -17,7 +17,7 @@ class Vertice:
         # Liste des salles nettoyées sur le chemin ci dessus (donc dans la branche)
         self.roomsCleaned = roomsCleaned
 
-        # Calcul de l'heuristique
+        # Calcul de la fonction d'évaluation
         self.heuristic = manhattanHeuristic + len(self.path)
         
         # Liste contenant les coordonnées des salles nettoyées
