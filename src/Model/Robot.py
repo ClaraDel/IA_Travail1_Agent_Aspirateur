@@ -89,6 +89,8 @@ class Robot:
     
             if roomCoordinates == (previousCoordinates[0],previousCoordinates[1]):
                 isThereJewel = False
+                # On regarde parmis toutes les salles sur notre chemin contenant un bijou pour savoir
+                # si l'on se trouve sur l'une d'entre elles 
                 for roomJewelCoordinates in self.finalVertice.getRoomsTidy():
                     if(roomJewelCoordinates == (previousCoordinates[0],previousCoordinates[1])):
                         self.actionList.append("takeObj")
@@ -299,8 +301,10 @@ class Robot:
     #Return true if difference between performances is too high and rescan is mandatory
     def informRealPerformance(self, performance):
         myPerformance = 0
+        # On fait la somme des performances de chacun des mouvements du robot jusqu'à l'action actuel dans notre plan d'actions
         for i in range(len(self.finalVertice.getTheoricalPerformanceTab()) - len(self.actionList)):
             myPerformance += self.finalVertice.getTheoricalPerformanceTab()[i]
+        # Si la différence de performance est supérieure à 15 alors on demande à faire un rescan
         if(performance - myPerformance > 15):
             self.needToRescan = True
             print("Ma performance estimée (" + str(myPerformance) + ") est trop loin de ma performance réelle (" + str(performance) + "). Je rescan !")
@@ -321,6 +325,8 @@ class Robot:
             # On appelle une méthode de l'effecteur pour mettre à jour la position du robot ou lui ordonner d'aspirer la salle
             self.effecteur.processAction(self, currentAction)
             time.sleep(1)
+            # Toute les 5 actions, on calcule la différence entre la performance estimée et réelle pour
+            # savoir si un rescan est nécessaire ou non
             if(timeSinceLastPerformanceComparison >= 5):
                 timeSinceLastPerformanceComparison = 0
                 if(self.informRealPerformance(self.capteur.getRealPerformance())):
