@@ -8,14 +8,14 @@ class Table():
         self.root = root
         self.env = env
         self.robot = robot
-        self.imgRobot = PhotoImage(file='D:/cours UQAC/IA/aspirobot/src/Images/robot.png')
-        self.imgDirt = PhotoImage(file='D:/cours UQAC/IA/aspirobot/src/Images/dirt.png')
-        self.imgJewel = PhotoImage(file='D:/cours UQAC/IA/aspirobot/src/Images/jewel.png')
-        self.imgDirtAndJewel = PhotoImage(file='D:/cours UQAC/IA/aspirobot/src/Images/DirtAndJewel.png')
-        self.imgDirtAndRobot = PhotoImage(file='D:/cours UQAC/IA/aspirobot/src/Images/DirtAndRobot.png')
-        self.imgJewelAndRobot = PhotoImage(file='D:/cours UQAC/IA/aspirobot/src/Images/jewelAndRobot.png')
-        self.imgNothing = PhotoImage(file='D:/cours UQAC/IA/aspirobot/src/Images/nothing.png')
-        self.imgDirtAndJewelAndRobot = PhotoImage(file='D:/cours UQAC/IA/aspirobot/src/Images/DirtAndJewelAndRobot.png')
+        self.imgRobot = PhotoImage(file='Images/robot.png')
+        self.imgDirt = PhotoImage(file='Images/dirt.png')
+        self.imgJewel = PhotoImage(file='Images/jewel.png')
+        self.imgDirtAndJewel = PhotoImage(file='Images/DirtAndJewel.png')
+        self.imgDirtAndRobot = PhotoImage(file='Images/DirtAndRobot.png')
+        self.imgJewelAndRobot = PhotoImage(file='Images/jewelAndRobot.png')
+        self.imgNothing = PhotoImage(file='Images/nothing.png')
+        self.imgDirtAndJewelAndRobot = PhotoImage(file='Images/DirtAndJewelAndRobot.png')
         
         Button(text = "Quitter", command = self.root.destroy).grid(row=5,column=4)
         for room in self.env.roomList:

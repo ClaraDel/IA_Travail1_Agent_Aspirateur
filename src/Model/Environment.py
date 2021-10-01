@@ -7,6 +7,7 @@ class Environment :
         self.dirtNumber = 0
         self.jewelNumber = 0
         self.realPerformance = 0
+        self.timeSinceLastPerformanceComparison = 0
 
         # Création des 25 salles
         for i in range(5):
@@ -45,6 +46,7 @@ class Environment :
         if(self.roomList[5*y+x].getJewel()):
             self.removeJewel(x, y)
             print("Aïe ! Un bijou a été aspiré !")
+            self.realPerformance += 10 # On ajoute une grosse pénalité lorsque le robot aspire un bijou
     def removeDirt(self, x, y):
         if(self.roomList[5*y+x].getDirt()):
             self.roomList[5*y+x].setDirt(False)
@@ -89,9 +91,18 @@ class Environment :
                 dirtyRoomsPosition.append((room.getXPos(), room.getYPos()))
         return dirtyRoomsPosition
 
+    def resetPerformanceChecking(self):
+        self.realPerformance = 0
+        self.timeSinceLastPerformanceComparison = 0
+
     def checkMyPerformance(self, robot):
         self.realPerformance += self.InverseManhattanDistance((robot.getXPos(), robot.getYPos())) + 1 # +1 correspond à l'energie dépensée par le robot
-
+        self.timeSinceLastPerformanceComparison += 1
+        if(self.timeSinceLastPerformanceComparison >= 5):
+            self.timeSinceLastPerformanceComparison = 0
+            if(robot.informRealPerformance(self.realPerformance)):
+                self.realPerformance = 0
+        
     def InverseManhattanDistance(self, position):
         invManhattan = 0
         for coord in self.getDirtyRoomsPosition():

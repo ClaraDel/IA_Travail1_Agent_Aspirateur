@@ -12,6 +12,7 @@ class Robot:
         self.y = positionY
         self.actionList = []
         self.verticeListToCleanState = []
+        self.needToRescan = False
 
 
 
@@ -295,13 +296,23 @@ class Robot:
         return self.y
 
 
+    #Return true if difference between performances is too high and rescan is mandatory
+    def informRealPerformance(self, performance):
+        myPerformance = 0
+        for i in range(len(self.finalVertice.getTheoricalPerformanceTab()) - len(self.actionList)):
+            myPerformance += self.finalVertice.getTheoricalPerformanceTab()[i]
+        if(performance - myPerformance > 15):
+            self.needToRescan = True
+            print("Ma performance estimée (" + str(myPerformance) + ") est trop loin de ma performance réelle (" + str(performance) + "). Je rescan !")
+            return True
+        return False
 
     # Le robot applique les actions contenues dans sa liste d'actions
     def JustDoIt(self):
         print(self.actionList)
         actionIndex = 0
         # Tant que la liste d'action n'est pas vide, effectuer les actions
-        while (len(self.actionList) > 0):
+        while (len(self.actionList) > 0 and not(self.needToRescan)):
 
             # Pop la file
             currentAction = self.actionList.pop(0)
@@ -310,3 +321,5 @@ class Robot:
             self.effecteur.processAction(self, currentAction)
             actionIndex += 1
             time.sleep(1)
+        self.needToRescan = False
+        self.actionList = []
