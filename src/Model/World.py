@@ -16,7 +16,7 @@ class World:
     def thread_env(self, name):
         print("thread environment started \n")
         while (self.gameIsRunning):
-            dirtProbability = random.randrange(4)
+            dirtProbability = random.randrange(5)
             if (dirtProbability <= 1):
                 # Placement des poussières et incrémentation du nombre de poussières dans l'environnement
                 dirt = random.randrange(25)

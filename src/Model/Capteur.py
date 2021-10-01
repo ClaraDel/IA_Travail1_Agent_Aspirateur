@@ -11,5 +11,8 @@ class Capteur :
     def scan(self):
         self.env.resetPerformanceChecking()
         return deepcopy(self.env)
+    
+    def getRealPerformance(self):
+        return self.env.getRealPerformance()
         
         

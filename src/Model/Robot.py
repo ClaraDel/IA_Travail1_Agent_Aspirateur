@@ -311,16 +311,21 @@ class Robot:
     # Le robot applique les actions contenues dans sa liste d'actions
     def JustDoIt(self):
         print(self.actionList)
-        actionIndex = 0
+        timeSinceLastPerformanceComparison = 0
+        
         # Tant que la liste d'action n'est pas vide, effectuer les actions
         while (len(self.actionList) > 0 and not(self.needToRescan)):
-
+            timeSinceLastPerformanceComparison += 1
             # Pop la file
             currentAction = self.actionList.pop(0)
-
+    
             # On appelle une méthode de l'effecteur pour mettre à jour la position du robot ou lui ordonner d'aspirer la salle
             self.effecteur.processAction(self, currentAction)
-            actionIndex += 1
             time.sleep(1)
+            if(timeSinceLastPerformanceComparison >= 5):
+                timeSinceLastPerformanceComparison = 0
+                if(self.informRealPerformance(self.capteur.getRealPerformance())):
+                    self.effecteur.resetPerformance()
+        
         self.needToRescan = False
         self.actionList = []

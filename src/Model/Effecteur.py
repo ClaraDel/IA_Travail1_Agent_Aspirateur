@@ -18,3 +18,6 @@ class Effecteur:
         elif (action == "takeObj"):
             self.env.removeJewel(robot.y, robot.x)
         self.env.checkMyPerformance(robot)
+    
+    def resetPerformance(self):
+        self.env.resetPerformanceChecking()
